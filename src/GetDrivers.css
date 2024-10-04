@@ -1,0 +1,103 @@
+.cargenstatusd{
+  display: flex;
+
+}
+
+.statusfinali1d{
+  font-weight: 300;
+  font-size: 1.5rem;
+  font-family:'Roboto','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ 
+
+
+}
+
+.statusnamenearpic{
+  margin-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.picture-container img{
+  border-radius:50% ;
+  width: 70px;
+  height: 70px;
+}
+
+/* General Styles */
+.dd-driver-img {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.dd-no-pic {
+  width: 70px;
+  border-radius: 50%;
+}
+
+/* Modal Overlay */
+.dd-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.dd-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+}
+
+/* Dropzone Styling */
+.dd-dropzone {
+  border: 2px dashed #007bff;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* Crop Container */
+.dd-crop-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.dd-crop-button, .dd-modal-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dd-crop-button:hover, .dd-modal-content button:hover {
+  background-color: #0056b3;
+}
+.dd-crop-button {
+  position: relative; /* Adjust as needed */
+  z-index: 10; /* Ensure it's above other content */
+  visibility: visible; /* Override any potential visibility issues */
+}
+.dd-modal-content h3{
+  font-size: 1.3rem;
+  margin-bottom: 40px;
+}
+

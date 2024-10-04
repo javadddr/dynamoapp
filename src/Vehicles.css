@@ -1,0 +1,464 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+.vehicles-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+ 
+
+}
+.hidddenforuserdfj {
+  display: none;
+}
+
+.vehicles-container button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 7px 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 170px;
+  background-color: #0843bf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  margin-right: 18px;
+  margin-top: 7px;
+  font-family:'Inter','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#closeccdo{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 7px 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  
+  background-color: #0843bf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+
+  float: right;
+  font-size: 14px;
+  cursor: pointer;
+
+  width: 130px;
+
+  font-family:'Inter','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.modalcarso {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(211, 209, 209, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+}
+
+.modal-contentcarso {
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  min-width: 550px;
+  width: 35%;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+ 
+ 
+}
+
+#close {
+  float: right;
+  font-size: 14px;
+  cursor: pointer;
+  background: rgb(251, 199, 199);
+  color: black;
+  width: 120px;
+}
+
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+  width: 80%;
+  padding: 8px;
+ 
+  display: inline-block;
+  border: 1px solid #636363;
+  border-left: none;
+
+  box-sizing: border-box;
+}
+
+.form-group-state{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 14px;
+  font-family:'Roboto' ,'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.form-group-state label {
+  display: inline-flex;
+  flex: 3.1;
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  position: relative; /* Required for positioning the pseudo-element */
+}
+
+.form-group-state label::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: currentColor; /* Use the text color for the line */
+  transition: width 0.3s ease-out; /* Smooth transition for the line width */
+  position: absolute;
+  left: 0;
+  bottom: -13px; /* Adjust to place the line correctly below the label text */
+  white-space: nowrap; /* Ensure the pseudo-element doesn't wrap */
+}
+
+.form-group-state label:hover::after {
+  width: 30%; /* Line expands to match text width on hover */
+}
+
+
+.form-group-state input[type="text"] {
+  padding: 5px 7px; /* Adequate padding for touch targets and aesthetics */
+  font-family:'Inter' ,'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 3px; /* Rounded corners for a modern look */
+  background-color: #ffffff; /* White background */
+  font-size: 14px;
+  border: 2px solid #E5E7EB; /* Light gray border */
+  border-radius: 5px; /* Slightly rounded corners for modern look */
+  transition: border-color 0.2s ease-in-out;
+  outline: none; /* Removes the default focus outline */
+}
+.form-group-state input[type="number"] {
+  padding: 3px 7px; /* Adequate padding for touch targets and aesthetics */
+  font-family:'Inter' ,'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 3px; /* Rounded corners for a modern look */
+  background-color: #ffffff; /* White background */
+  font-size: 14px;
+  border: 2px solid #E5E7EB; /* Light gray border */
+  border-radius: 5px; /* Slightly rounded corners for modern look */
+  transition: border-color 0.2s ease-in-out;
+  outline: none; /* Removes the default focus outline */
+}
+.addimg button{
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.form-group-state input[type="text"]:focus {
+  border-color: #3B82F6; /* Brighter border for focused input */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* Subtle shadow for depth */
+}
+
+.form-group-state input[type="text"]:hover {
+  border-color: #D1D5DB; /* Slightly darker border on hover */
+}
+.form-group-state select{
+  flex: 4;
+ 
+}
+
+.form-group-state input{
+  flex: 4;
+ 
+}
+
+
+.Addvehicle {
+  display: flex;
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 7px;
+  padding-left: 10px;
+  padding-top: 20px;
+  color: #0000FF;
+  position: relative; /* Needed for absolute positioning of pseudo-element */
+}
+
+.Addvehicle::after {
+  content: '';
+  display: block;
+  width: 0; /* Start with no width and transition to full width on hover */
+  height: 2px; /* Height of the underline */
+  background: #0000FF; /* Color of the underline */
+  transition: width 0.3s ease; /* Smooth transition for the line width */
+  position: absolute;
+  left: 0;
+  bottom: -7px; /* Adjust as needed based on the exact position you want */
+}
+
+.Addvehicle:hover::after {
+  width: 23%; /* Full width on hover */
+}
+
+.btnboth{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+ 
+  padding: 15px;
+  padding-top: 25px;
+}
+.btnboth button{
+  margin: 0px;
+}
+
+/* Style for the select element within the form-group-state */
+.form-group-state select {
+  display: block;
+  width: 100%; /* Responsive width */
+  padding: 4px 6px; /* Adequate padding for touch targets and aesthetics */
+
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 3px; /* Rounded corners for a modern look */
+  background-color: #ffffff; /* White background */
+  appearance: none; /* Remove default browser styling */
+  -webkit-appearance: none; /* Specific prefix for Safari */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  position: relative; /* For custom arrow positioning */
+  font-size: 14px;
+  font-family:'Inter' ,'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+/* Custom arrow using background-image for the select */
+.form-group-state select {
+  background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%);
+  background-position: right 14px top 50%, right 12px top 50%; /* Position the arrows */
+  background-size: 5px 5px, 5px 5px; /* Size of the arrows */
+  background-repeat: no-repeat;
+}
+
+/* Change the arrow color on hover */
+.form-group-state select:hover {
+  border-color: #888; /* Darker border on hover */
+}
+
+/* Focus style for accessibility and visual feedback */
+.form-group-state select:focus {
+  outline: none; /* Remove default outline */
+  border-color: #007bff; /* Highlight color for focus */
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25); /* Subtle glow effect */
+}
+
+/* Since we removed the browser's default dropdown arrow and replaced it with a custom one,
+   make sure to address accessibility concerns and ensure that your form is still easy to use. */
+/* Add this to your Vehicles.css file */
+
+/* Styles for the date picker input */
+.form-controlvemain {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-family:'roboto' ,'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: #070505;
+
+}
+.dateveform{
+  display: flex;
+  flex: 4.6;
+  margin-left: 6px;
+}
+.dateveform input{
+width: 100%;
+}
+
+.notificationP {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; /* Adjust if necessary for initial positioning */
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Ensure it's not interactable when not shown */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #b2f3b5;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  color: #070505;
+  font-family:'Inter' ,'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.notificationP.show {
+  opacity: 1;
+  visibility: visible;
+  animation: notificationSlideIn 0.5s forwards;
+
+}
+.notificationP.hide {
+  animation: notificationSlideOut 0.5s forwards;
+}
+
+/* Slide-in animation */
+@keyframes notificationSlideIn {
+  from {
+    top: -100px;
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  to {
+    top: 2px;
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes notificationSlideOut {
+  from {
+    top: 2px;
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  to {
+    top: -100px;
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+}
+
+
+
+/* Loading line animation */
+@keyframes load {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.loading-line {
+  height: 5px;
+  background: #f80909;
+  width: 0;
+  margin-top: 5px;
+  animation: load 3s forwards; /* Adjust time to control speed */
+}
+
+
+.dateveform .react-datepicker-popper {
+  border: 1px solid rgb(177, 177, 177);
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Styles for the calendar popper */
+.dateveform .react-datepicker {
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Customize the header */
+.dateveform .react-datepicker__header {
+  background-color: #f0f0f0;
+  border-bottom: none;
+  font-size: 0.9rem;
+}
+
+/* Customize the selected day */
+.dateveform .react-datepicker__day--selected,
+.dateveform .react-datepicker__day--keyboard-selected,
+.dateveform .react-datepicker__time-list-item--selected {
+  background-color: #a1fcb1;
+  color: rgb(4, 4, 4);
+}
+
+/* Customize the navigation arrows */
+.dateveform .react-datepicker__navigation--previous {
+  top:0px;
+}
+
+.dateveform .react-datepicker__navigation--next {
+  top: 0px;
+  right: 0px;
+}
+
+.dateveform .react-datepicker__year-select{
+  width: 100%;
+}
+.dateveform .react-datepicker__navigation.react-datepicker__navigation--previous{
+  width: 35px;
+color: #149d2d;
+
+
+
+}
+.dateveform .react-datepicker__navigation.react-datepicker__navigation--next{
+  width: 35px;
+
+}
+.dateveform .react-datepicker__current-month.react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown{
+  margin-bottom: 10px;
+}
+.dateveform .react-datepicker__month-dropdown-container.react-datepicker__month-dropdown-container--select{
+  width: 130px;
+  margin: 0 5px;
+  
+}
+.dateveform .react-datepicker__year-dropdown-container.react-datepicker__year-dropdown-container--select{
+  width: 90px;
+  margin: 0 5px;
+}
+.dateveform .react-datepicker__navigation.react-datepicker__navigation--next{
+  background-color: #066af5;
+  border: 1px solid rgb(168, 168, 168);
+  height: 28px;
+  margin: 2px;
+}
+.dateveform .react-datepicker__navigation.react-datepicker__navigation--previous{
+  background-color: #066af5;
+  border: 1px solid rgb(168, 168, 168);
+  height: 28px;
+  margin: 2px;
+}
+
+.drivers-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.dateveform .react-datepicker__current-month.react-datepicker__current-month--hasYearDropdown.react-datepicker__current-month--hasMonthDropdown{
+  color: #0202a4;
+  font-family:'inter','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 500;
+}

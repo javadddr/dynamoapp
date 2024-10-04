@@ -1,0 +1,232 @@
+.overlayoknfd {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Ensure it's below the modal but above other content */
+}
+
+.users-container {
+  padding: 20px;
+}
+
+.tabeluserddics table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.tabeluserddics th, .tabeluserddics td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.tabeluserddics th {
+  background-color: #f2f2f2;
+}
+
+.modalusercreatin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 17px;
+  z-index: 1000; /* Higher than overlay */
+  border: 1px solid #ccc;
+  height: 480px;
+  width: 400px;
+  border-radius: 10px;
+}
+
+.modalusercreatin form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalusercreatin label {
+  margin-bottom: 3px;
+}
+
+.modalusercreatin input, .modalusercreatin select {
+  margin-top: 5px;
+}
+
+.modalusercreatin button {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  
+}
+.btnbothccxs{
+  position: fixed;
+  background-color: #F2F2F2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-top: 85%;
+  width: 93%;
+}
+#cankmanfi2{
+  float: right;
+  font-size: 13px;
+  cursor: pointer;
+  background: rgb(251, 199, 199);
+  color: black;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 7px 3.5px;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 100px;
+
+  border: none;
+  border-radius: 5px;
+margin-left: 5px;
+  margin-right: 20px;
+
+  font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#sareojagh{
+  display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 7px 3.5px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100px;
+    background-color: #0843bf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-right: 10px;
+   
+    font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.userfotbabafoot{
+  display: flex;
+  height: 100%;
+
+}
+.userfotbaba{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+ align-items: center;
+ font-size: 14px;
+  
+}
+.userfotbaba1 {
+  flex: 1; /* Takes up 1 part of the space */
+}
+
+.userfotbaba2 {
+  flex: 2; /* Takes up 2 parts of the space */
+  width: 90px;
+}
+.userfotbaba input{
+  width: 100%;
+}
+.ejazebedin{
+  margin-top: 50px;
+}
+
+
+.Addvehicleopl {
+  display: flex;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 7px;
+
+  padding-top: 20px;
+  color: #0000FF;
+  position: relative; /* Needed for absolute positioning of pseudo-element */
+}
+
+.Addvehicleopl::after {
+  content: '';
+  display: block;
+  width: 0; /* Start with no width and transition to full width on hover */
+  height: 2px; /* Height of the underline */
+  background: #0000FF; /* Color of the underline */
+  transition: width 0.3s ease; /* Smooth transition for the line width */
+  position: absolute;
+  left: 0;
+  bottom: -7px; /* Adjust as needed based on the exact position you want */
+}
+
+.Addvehicleopl:hover::after {
+  width: 23%; /* Full width on hover */
+}
+
+.users-container table {
+  width: 100%; /* Ensure the table takes the full width of its container */
+  table-layout: fixed; /* Fixed layout helps enforce column widths */
+}
+
+.users-container th.username,
+.users-container td.username {
+  width: 20%; /* Adjust according to your needs */
+}
+
+.users-container th.email,
+.users-container td.email {
+  width: 25%;
+}
+
+.users-container th.roles,
+.users-container td.roles {
+  width: 15%;
+}
+
+.users-container th.status,
+.users-container td.status {
+  width: 10%;
+}
+
+.users-container th.allowedArea,
+.users-container td.allowedArea {
+  width: 20%;
+}
+
+.users-container th.action,
+.users-container td.action {
+  width: 10%;
+}
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  height: 45px;
+  font-size: 14px;
+}
+.css-1h51icj-MuiAutocomplete-root .MuiOutlinedInput-root{
+  padding: 2px;
+}
+.css-6od3lo-MuiChip-label{
+  font-size: 12px;
+  padding-left: 2px;
+    padding-right: 2px;
+
+}
+.css-1h51icj-MuiAutocomplete-root .MuiAutocomplete-tag{
+  padding: 0px;
+  margin: 0px;
+}
+ 
+.truncate {
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

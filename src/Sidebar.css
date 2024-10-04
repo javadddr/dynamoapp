@@ -1,0 +1,140 @@
+
+.cardtrial {
+
+  position: relative;
+  width: 215px;
+  height: 90px;
+  background: rgb(199, 246, 245);
+  display: flex;
+align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-direction: column;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+.cardtrial2 {
+
+  position: relative;
+
+  display: flex;
+align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-direction: column;
+  border-radius: 15px;
+  cursor: pointer;
+ 
+}
+
+.cardtrial::before,
+.cardtrial::after {
+  position: absolute;
+  content: "";
+  width: 20%;
+  height: 20%;
+  display: flex;
+ 
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: lightblue;
+  transition: all 0.5s;
+}
+
+.cardtrial::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.cardtrial::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100%  0 15px;
+}
+
+.cardtrial:hover::before,
+.cardtrial:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.cardtrial:hover:after {
+  content: "Subscribe!";
+}
+
+.cardtrial h1{
+  font-size: 12px;
+font-weight: bold;
+  color: rgb(47, 62, 59);
+
+
+}
+
+.blur-content {
+  filter: blur(4px);
+  pointer-events: none;
+  /* width: 100%; */
+}
+
+.overlay-subscribe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.overlay-subscribe button{
+  border-radius: 5px;
+  width: 46%;
+  height: 40px;
+  font-size: 16px;
+}
+.overlay-subscribe button:hover{
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color: #173ad7;
+}
+.overlay-subscribe h2{
+font-size: 22px;
+}
+.capacityinfomain{
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  margin: 0px;
+  border: 1px solid #949494;
+  padding: 3px;
+  border-radius: 5px;
+  background-color: rgb(236, 245, 202);
+  
+}
+#capacityinfomain1{
+  margin: 0px;
+  color: #949494;
+  font-size: 9px;
+}
+#capacityinfomain2{
+  margin: 0px;
+  color: #000000;
+  font-size: 9px;
+}
+

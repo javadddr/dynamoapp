@@ -1,0 +1,88 @@
+.maindriverwithstatus{
+  display: flex;
+  flex-direction: column;
+  
+
+}
+.Durationsdrivers{
+  display: flex;
+
+
+}
+.firstinfostatus{
+  width: 30%;
+  font-size: 14px;
+}
+.firstinfostatus h2{
+ font-size: 24px;
+}
+
+.secondchartinfo{
+  display: flex;
+  align-items: flex-start;
+  width: 70%;
+  font-size: 14px;
+  height: 70%;
+}
+.statusdrversendi{
+  display: flex;
+  flex-direction: column;
+ width: 500px;
+ justify-content: space-between;
+ 
+}
+.statusdrversendi span{
+  color: blue;
+}
+.statusdrversendi p{
+  margin: 0px;
+}
+.carsassidrivers{
+  min-height: 360px;
+  padding-top: 20px;
+}
+.modal-header{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.table-dark th {
+  background-color: #353535 !important;
+  font-weight: 400;
+  font-size: 13px;
+}
+.carsassidrivers nav{
+  display: block;
+ text-align: center;
+ font-size: 13px;
+}
+.paginationddd0{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 0;
+
+ 
+}
+.paginationddd0 ul{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+ 
+}
+.page-item.active{
+  color: blue;
+ font-weight: 900;
+}
+.page-item{
+  margin-left: 10px;
+}
+
+.navpaginationddd0{
+  width: 100%;
+}
+.table-dark tr{
+  font-size: 13px;
+}

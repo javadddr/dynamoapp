@@ -1,0 +1,220 @@
+.dropzone {
+  border: 2px dashed #007bff;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  color: #007bff;
+  transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.dropzone:hover,
+.dropzone:focus {
+  background-color: #f8f9fa;
+  border-color: #0056b3;
+}
+
+
+.dropzone.active {
+  background-color: #e9f5ff;
+  border-color: #0056b3;
+}
+
+.dropzone p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.file-details {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+
+.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-edgeEnd.MuiIconButton-sizeMedium.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root{
+  margin: 0px;
+  width: 50px;
+ background-color: #ffffff;
+color: #707070;
+}
+.MuiFormControl-root.MuiTextField-root.css-z3c6am-MuiFormControl-root-MuiTextField-root{
+  display: flex;
+  flex: 4.2;
+}
+.dropzone{
+  display: flex;
+  flex: 3.7;
+
+}
+/* Ensuring the crop area and button fit nicely within the modal */
+.crop-container {
+  width: 100%; /* Full width to fit within the modal */
+  height: 200px; /* Reduced height for better fit */
+  margin-top: 15px; /* Ensures some space between form elements and crop area */
+  margin-bottom: 15px; /* Space before the crop button */
+  position: relative; /* Add position to manage z-index effectively */
+  z-index: 3000;
+}
+
+/* Adjusting the crop button to align with your form's styling */
+.crop-button {
+
+  width: auto;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Example color: Green */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  position: relative; /* Key for z-index */
+  z-index: 3001; /* Ensures button is above the crop area */
+  display: block; /* Center the button if not already */
+}
+.crop-button:hover {
+  background-color: #45a049; /* Darker shade for hover effect */
+}
+/* If you're displaying the cropped image as a preview */
+.image-preview {
+  display: block; /* Ensures the image is block-level for proper spacing */
+  margin: 10px auto; /* Centers the image below the crop area */
+  border-radius: 50%; /* Keeps the avatar look */
+}
+
+/* Adjusting the modal content for a better layout with cropping */
+.modal-content {
+  padding: 20px; /* Ensures padding inside the modal for spacing */
+  width: 80%; /* Adjusts width to provide more space, consider responsiveness */
+  max-width: 600px; /* Maximum width to prevent it from being too wide */
+  margin: auto; /* Centers the modal on the page */
+}
+
+
+/* Responsive design adjustments for smaller screens */
+@media (max-width: 768px) {
+  .crop-container {
+    height: 150px; /* Reduces height on smaller screens for better fit */
+  }
+  .modal-content {
+    width: 90%; /* Increases width percentage for smaller screens */
+  }
+}
+
+.remove-file-button{
+  margin: 0px;
+  padding: 0;
+}
+.uploaded-file-info{
+display: flex;
+justify-content: flex-end;
+align-items: center;
+text-align: center;
+flex: 3.7;
+width: 76%;
+font-size: 13px;
+
+}
+.uploaded-file-info button{
+  background-color: #7b7b7b;
+  margin: 0px;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.driverModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Slightly darker for better visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Increase if necessary to ensure it's on top */
+}
+
+.driverModalContent {
+  background: #fff;
+  border-radius: 8px;
+  min-width: 420px; /* Adjust based on your content */
+  width: auto;
+  width: 450px; /* Or any max-width you prefer */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2px;
+  z-index: 1;
+}
+
+/* Additional styling for modal content */
+.driverModalContent h3, .driverModalContent p {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+/* Close button styling inside the modal */
+.driverModalContent #close {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .driverModalContent {
+    width: 90%; /* More screen width on smaller devices */
+    padding: 15px; /* Adjust padding as needed */
+  }
+}
+
+/* Consider adding animations for modal entry and exit for better UX */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.driverModal {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.driverModalContent {
+  animation: slideIn 0.3s ease-out forwards;
+}
+.btnbothcd{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  background-color: #F2F2F2;
+  padding: 15px;
+  padding-top:0px;
+  margin-top: 10px;
+}
+#closepp {
+  float: right;
+  font-size: 14px;
+  cursor: pointer;
+  background: rgb(251, 199, 199);
+  color: black;
+  width: 120px;
+}
+#closeppd{
+margin-right: 0px;
+font-size: 14px;
+width: 120px;
+}
+
+
+

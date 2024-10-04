@@ -1,0 +1,347 @@
+
+
+
+
+.formfineop{
+font-size: 11px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 500px;
+}
+.typdatefine{
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+font-size: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+.typdatefineppol{
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: flex-start;
+
+  margin-bottom: 30px;
+}
+.typdatefine1o{
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+width: 80%;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.isufin{
+  margin-right: 10px;
+  font-size: 11px;
+}
+.isufin1{
+  width: 27.5%;
+  font-size: 11px;
+}
+
+
+.typdatefine1o button{
+  margin-right: 10%;
+}
+
+.finadopsmuchh{
+  margin-left: 20px;
+  font-family:'Inter','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 500;
+  color: blue;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiAccordion-root.MuiAccordion-rounded.MuiAccordion-gutters.css-1c35hjw-MuiPaper-root-MuiAccordion-root{
+  border: 1px solid rgb(40, 38, 38);
+  margin-bottom: 50px;
+
+}
+
+.trfingerefrat th{
+  font-family:'Inter','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+  max-height: 30px;
+  font-size: 14px;
+  border-right: 1px solid rgb(255, 255, 255);
+
+  text-align: center;
+
+
+}
+
+.trfingerefrat:hover{
+  background-color: rgb(0, 0, 0);
+  font-size: 13px;
+}
+.trfingerefratth thead{
+  background-color: rgb(2, 2, 2);
+  
+}
+.trfingerefratth thead:hover{
+  background-color: rgb(63, 63, 63);
+  font-size: 13px;
+  height: 30px;
+}
+.exportisod{
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+  font-size: 13px;
+}
+.mainexarjo{
+  width: 100%;
+}
+
+.trfingerefratth td{
+  border-right: 1px solid rgb(244, 244, 244);
+  border-bottom: 1px solid rgb(244, 244, 244);
+  font-size: 13px;
+ 
+}
+.css-11jnun4-MuiStack-root{
+  margin-left: 10px;
+
+}
+
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root{
+  font-weight: 200;
+
+}
+.modal-backdrop1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100%;
+  
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container1 {
+  position: relative; /* Ensure child elements can be absolutely positioned relative to this container */
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  height: 750px;
+}
+/* Add styling for animation */
+.modal-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modal-exit {
+  opacity: 1;
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.sedfineook{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 4px;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 130px;
+  background-color: #0843bf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 30px;
+  margin-top: 20px;
+  font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#closessd{
+  
+  float: right;
+    font-size: 14px;
+    cursor: pointer;
+    background: rgb(251, 199, 199);
+    color: black;
+    cursor: pointer;
+    padding: 5px 4px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 130px;
+    border-radius: 5px;
+}
+
+.typdatefinevvb{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.isufinvvb{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  font-size: 11px;
+}
+.isufinvvb4{
+  display: flex;
+  justify-content: flex-end;
+
+  height: 50px;
+}
+.isufinvvb{
+  height: 40px;
+  font-size: 13px;
+}
+
+
+
+#issueDate{
+  width: 250px;
+  margin-right: 1.3%;
+  height: 35px;
+}
+
+#occureDate{
+  width: 250px;
+  margin-right: 1.3%;
+  height: 35px;
+}
+
+#dueDate{
+  width: 250px;
+  margin-right: 1.3%;
+  height: 35px;
+}
+#savefinedoi{
+  background-color: transparent;
+  color: #0843bf;
+  padding: 0px;
+  margin-left: 14px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-right: 0px;
+ 
+}
+
+
+#exportisodcsv {
+  position: relative;
+  width: 149px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: #5bbd8a;
+  overflow: hidden;
+  border-radius:5px;
+
+}
+
+#exportisodcsv, .button__icon, .button__text {
+  transition: all 0.3s;
+}
+
+#exportisodcsv .button__text {
+  transform: translateX(0px);
+  color: #070707;
+  font-weight: 500;
+  
+}
+
+#exportisodcsv .button__icon {
+  position: absolute;
+  transform: translateX(90px);
+  height: 100%;
+  width: 39px;
+  background-color: #0753a5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-left: 0.5px solid black;
+  font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#exportisodcsv .svg {
+  width: 20px;
+  fill: #fff;
+}
+
+#exportisodcsv:hover {
+  background: #0b46a6;
+  color: #fff;
+  border-left: 0px solid black;
+font-weight: 700;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+#exportisodcsv:hover .button__text {
+  color: transparent;
+}
+
+#exportisodcsv:hover .button__icon {
+  width: 148px;
+  transform: translateX(-20px);
+ 
+}
+
+#exportisodcsv:active .button__icon {
+  background-color: #146c54;
+       
+   
+}
+
+#exportisodcsv:active {
+   border: 0.5px solid #17795E;
+
+  
+}
+
+
+#add-equipment-btndd{
+  display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 2px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 190px;
+    background-color: #0843bf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+height: 40px;
+    font-family: 'Inter', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

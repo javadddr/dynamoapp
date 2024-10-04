@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+.generalgeneral{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 8px;
+  align-items: center;
+
+
+}
+.generalgeneral p{
+  margin: 0px;
+}
+.generalgenerals{
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  color: #AF4C01;
+  cursor: pointer;
+  min-height: 20px; /* Ensure there's space for the icon */
+  font-family:'roboto','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: none;
+}
+.edit-icon {
+  display: none; /* Hide by default */
+  position: absolute;
+  left: -10%; /* Adjust as needed */
+margin-right: 7px;
+  
+}
+.bothddchikar{
+  display: flex;
+
+  
+}
+.edit-icon img{
+ width: 22px;
+  
+}
+.checkitemgeneral{
+  display: flex;
+  height: 20px;
+  justify-content: flex-start;
+  width: 50%;
+  font-family:'roboto','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.checkitemgeneral span{
+  margin-left: 5px;
+  color: #0c0c8c;
+}
+.checkitemgeneral input{
+  width: 150px;
+  border:1px solid #f6b9b9;
+  border-radius: 5px;
+
+  padding: 1px;
+  margin-right: 2px;
+}
+.checkitemgeneral select{
+  width: 150px;
+  border:1px solid #f6b9b9;
+  border-radius: 5px;
+
+  padding: 0px;
+  margin-right: 2px;
+  height: 20px;
+}
+.generalgenerals:hover .edit-icon {
+  display: flex; /* Show on hover */
+}
+.generalgenerals1{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+  width: 400px;
+  color: #011eaf;
+}
+.yesdeletingacar{
+  background-color: #be0404;
+  margin-top: 20px;
+
+  font-family:'roboto','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 300;
+  color: rgb(255, 255, 255);
+  width: 100px;
+}
+.GEN-CAR-delete-button{
+  background-color: #be0404;
+
+padding:4px;
+  font-family:'roboto','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 300;
+  color: rgb(255, 255, 255);
+  width: 150px;
+
+  border-radius: 5px;
+  margin-top: 2%;
+}
+.nodeletingacar {
+  background-color: #403737; /* Red color for delete */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.confirmation-popup {
+  position: fixed; /* Fixed position to stay in view */
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  z-index: 100; /* Ensure it's above other content */
+  border-radius: 5px;
+  width: 400px; /* Fixed width */
+  border: 1px solid rgb(214, 214, 214);
+}
+.confirmation-popup span{
+  color: rgb(10, 88, 10);
+  font-family:'inter','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+
+
+  
+}
+
+.confirmation-popup p {
+  margin-bottom: 20px;
+  
+  font-family:'roboto','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.divoddeletecarbu{
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.confirmation-popup button:last-child {
+  background-color: #cfc8fd; /* Red color for cancel */
+  color: rgb(255, 255, 255);
+  font-family:'roboto','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 300;
+  color: black;
+  width: 100px;
+  
+}

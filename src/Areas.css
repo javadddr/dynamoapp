@@ -1,0 +1,29 @@
+.pipeline-containerarea {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pipelinearea {
+
+  padding: 10px;
+  border-radius: 5px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 270px;
+ 
+}
+
+.carsarea {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Space between cars */
+}
+
+.car-itemarea {
+  flex: 0 1 45%; /* Each car takes 45% of the width, adjust as needed */
+  min-width: 120px; /* Minimum width for each car item */
+}
+

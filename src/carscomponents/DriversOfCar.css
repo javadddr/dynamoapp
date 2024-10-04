@@ -1,0 +1,24 @@
+/* Add custom styles to make the DatePicker blend with NextUI's design */
+.ant-picker {
+  border-radius: 0.5rem; /* Matches NextUI button rounding */
+  padding: 0.75rem;
+  border-color: var(--nextui-colors-border); /* Use NextUI color variables if possible */
+  background-color: var(--nextui-colors-background);
+}
+
+.ant-picker-input > input {
+  color: var(--nextui-colors-text);
+}
+
+.ant-picker:hover,
+.ant-picker-focused {
+  border-color: var(--nextui-colors-primary); /* NextUI primary color on focus */
+}
+.custom-date-picker .ant-picker {
+  background-color: var(--nextui-colors-background);
+  color: var(--nextui-colors-text);
+  border: 1px solid var(--nextui-colors-border);
+}
+.custom-date-picker .ant-picker-focused {
+  border-color: var(--nextui-colors-primary);
+}
