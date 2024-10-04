@@ -531,7 +531,7 @@ useEffect(() => {
                       </span>
 
                     </p>
-                    <p className="text-center text-sm mt-0 pt-0">
+                    <p className="text-center text-sm mt-0 pt-0 mb-1">
                     Did you forget your password?{" "}
                     <Link to="/change-password" className="text-blue-600 cursor-pointer">
                       Reset.
@@ -540,7 +540,7 @@ useEffect(() => {
 
                   </div>
                  
-                  <div className="flex gap-2 justify-end mt-9">
+                  <div className="flex gap-2 justify-end mt-14">
                     <Button fullWidth color="primary" variant='flat' type="submit"  disabled={isLoading} className="shadow-2xl border border-indigo-600 ">
                     {isLoading ? 'Logging In...' : 'Login'}
                     </Button>
