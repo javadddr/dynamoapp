@@ -125,7 +125,6 @@ const [selected, setSelected] = React.useState("login");
       button.style.border = '1px solid yellow';
       button.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
       button.style.borderRadius = '5px';
-      button.style.width = '100%';  // Set full width
     }
   }, []);
   

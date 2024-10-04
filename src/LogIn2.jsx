@@ -306,8 +306,8 @@ useEffect(() => {
         button.style.border = '1px solid blue';
         button.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
         button.style.borderRadius = '5px';
-        button.style.width = '344px'; // Adjust the width to be full or a specific size
-        button.style.maxWidth = '344px'; // Optionally, set a max width
+        button.style.width = '244px'; // Adjust the width to be full or a specific size
+        button.style.maxWidth = '244px'; // Optionally, set a max width
       }
     }, []);
     
