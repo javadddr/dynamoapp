@@ -36,7 +36,7 @@ const [selected, setSelected] = React.useState("login");
 
     try {
       // Attempt to log in the user
-      const loginResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
+      const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -52,7 +52,7 @@ const [selected, setSelected] = React.useState("login");
         navigate('/fleet-overview'); // Redirect to MainPage
       } else {
         // If login fails, attempt to register the user
-        const registerResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/google-register`, {
+        const registerResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/google-register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -65,7 +65,7 @@ const [selected, setSelected] = React.useState("login");
 
         if (registerResponse.ok) {
           // Proceed to login after successful registration
-          const newLoginResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
+          const newLoginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

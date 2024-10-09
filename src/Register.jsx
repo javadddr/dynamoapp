@@ -29,7 +29,7 @@ function Register() {
     setShowAlert(false);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/google-register`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/google-register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -41,7 +41,7 @@ function Register() {
 
       if (response.ok) {
         // Proceed to login after successful registration
-        const loginResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
+        const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -90,7 +90,7 @@ function Register() {
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      client_id: import.meta.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleCallbackResponse
     });
     google.accounts.id.renderButton(
@@ -138,7 +138,7 @@ function Register() {
     setShowAlert(false);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
