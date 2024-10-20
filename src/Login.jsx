@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./Login.css";
-import logo from "./assets/logo5.png";
+import logo from "./logo5.jpeg";
 import eye from "../src/eye.png";
 import eye1 from "../src/eye1.png";
 import { jwtDecode } from 'jwt-decode';
 
-import {Tabs, Tab, Input, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
-import {EyeFilledIcon} from "./EyeFilledIcon";
-import {EyeSlashFilledIcon} from "./EyeSlashFilledIcon";
-import { color } from 'framer-motion';
 function Login() {
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-const [isVisible, setIsVisible] = React.useState(false);
-
-const toggleVisibility = () => setIsVisible(!isVisible);
-const [selected, setSelected] = React.useState("login");
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -101,7 +92,7 @@ const [selected, setSelected] = React.useState("login");
     localStorage.setItem('userEmail', data.result.email);
     localStorage.setItem('userId', data.result._id);
     localStorage.setItem('capacity', data.result.capacity.toString());
-    localStorage.setItem('tokentime', new Date().toISOString());
+
     const createdAtDate = new Date(data.result.createdAt);
     const currentDate = new Date();
     const timeDiff = currentDate.getTime() - createdAtDate.getTime();
@@ -127,7 +118,6 @@ const [selected, setSelected] = React.useState("login");
       button.style.borderRadius = '5px';
     }
   }, []);
-  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -136,7 +126,7 @@ const [selected, setSelected] = React.useState("login");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
- 
+
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
         method: 'POST',
@@ -144,7 +134,7 @@ const [selected, setSelected] = React.useState("login");
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-  
+
       setIsLoading(false);
       if (response.ok) {
         localStorage.setItem('userToken', data.token);
@@ -153,13 +143,13 @@ const [selected, setSelected] = React.useState("login");
         localStorage.setItem('userEmail', data.result.email);
         localStorage.setItem('userId', data.result._id);
         localStorage.setItem('capacity', data.result.capacity.toString());
-       
+
         const createdAtDate = new Date(data.result.createdAt);
         const currentDate = new Date();
         const timeDiff = currentDate.getTime() - createdAtDate.getTime();
         const daysSinceCreation = Math.floor(timeDiff / (1000 * 3600 * 24));
         localStorage.setItem('createdAtDays', daysSinceCreation.toString());
-        localStorage.setItem('tokentime', new Date().toISOString());
+
         navigate('/fleet-overview'); // Redirect to MainPage
       } else {
         setErrorMessage('Login failed. Please verify your credentials and try again.');
@@ -171,6 +161,7 @@ const [selected, setSelected] = React.useState("login");
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     if (errorMessage) {
       const timer = setTimeout(() => {
@@ -232,163 +223,11 @@ const [selected, setSelected] = React.useState("login");
         <div className="greenSquare"></div>
         <div className="greenSquare2"></div>
       </div>
-      <div className="flex flex-col w-full">
-      <Card className="max-w-full w-[340px]  rounded-sm h-[400px]">
-        <CardBody className="overflow-hidden ">
-          <Tabs
-            fullWidth
-            size="md"
-            aria-label="Tabs form"
-            selectedKey={selected}
-            onSelectionChange={setSelected}
-          
-          >
-            <Tab key="login" title="Login"  style={{ outline: 'none' }}>
-              <form className="flex flex-col gap-6 focus:outline-none">
-              <div className="space-y-4">
-   <p className=" text-xs mb-0">Email</p>
-  <Input
-    isRequired
-
-    placeholder="Enter your email"
-    labelPlacement="outside"
-  
-    type="email"
-    color="secondary"
-   
-    style={{
-      backgroundColor: "transparent", // No background color
-      border: "none",                 // No border
-      outline: "none",                // No outline
-      boxShadow: "none", 
-      color:'black',  
-      marginTop:'0px'
-      
+      <div className='company-info'>
+        <img src={logo} alt="Company Logo" style={{ width: '40px', height: 'auto', marginRight: "4px" }} /><br></br>
+        <a href="https://dynamofleet.com/" target="_blank" rel="noopener noreferrer" >DynamoFleet</a> is a premium product developed by DynamoChart UG, based in Germany.<br></br>&copy; 2024 DynamoChart UG. All rights reserved.
+      </div>
      
-    }}
-    className="max-w-xs mt-0  "
-  />
-    <p className=" text-xs mb-5">Password</p>
-  <Input
- 
-  placeholder="Enter your password"
-  labelPlacement="outside"
-  color="secondary"
-  endContent={
-    <button
-      className="focus:outline-none focus:text-gray-900 "
-      type="button"
-      onClick={toggleVisibility}
-      aria-label="toggle password visibility"
-    >
-      {isVisible ? (
-        <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-      ) : (
-        <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-      )}
-    </button>
-  }
-  type={isVisible ? "text" : "password"}
-  variant="flat"
-  style={{
-    backgroundColor: "transparent", // No background color
-    border: "none",                 // No border
-    outline: "none",                // No outline
-    boxShadow: "none", 
-
-    color:'black'            // No shadow
-  }}
-  className="max-w-xs text-gray-900"
-/>
-
-
-</div>
-
-                <p className="text-center text-small">
-                  Need to create an account?{" "}
-                  <Link size="sm" onPress={() => setSelected("sign-up")}>
-                    Sign up
-                  </Link>
-                </p>
-                <div className="flex gap-2 justify-end">
-                  <Button fullWidth color="primary" variant='flat'>
-                    Login
-                  </Button>
-                </div>
-              </form>
-            </Tab>
-            <Tab key="sign-up" title="Sign up"  className={`${selected=='sign-up'?'focus:outline-none':''}`} style={{ outline: 'none' }}>
-              <form className="flex flex-col gap-4 h-[300px] focus:border-none ">
-              <p className=" text-xs">Name</p>
-                <Input   color="secondary" isRequired  style={{
-                      backgroundColor: "transparent", // No background color
-                      border: "none",                 // No border
-                      outline: "none",                // No outline
-                      boxShadow: "none", 
-                      color:'black',  
-                      marginTop:'0px'
-                      
-                     
-                    }}
-                    className="max-w-xs mt-0  " placeholder="Enter your name" type="password" />
-                <p className=" text-xs">Email</p>
-                <Input   color="secondary" isRequired  style={{
-                      backgroundColor: "transparent", // No background color
-                      border: "none",                 // No border
-                      outline: "none",                // No outline
-                      boxShadow: "none", 
-                      color:'black',  
-                      marginTop:'0px'
-                      
-                     
-                    }}
-                    className="max-w-xs mt-0  " placeholder="Enter your email" type="email" />
-                <p className=" text-xs">Password</p>
-                <Input
-                  
-                   
-                    placeholder="Enter your password"
-                    endContent={
-                      <button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
-                        {isVisible ? (
-                          <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                        ) : (
-                          <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                        )}
-                      </button>
-                    }
-                    type={isVisible ? "text" : "password"}
-                    color="secondary"
-   
-                    style={{
-                      backgroundColor: "transparent", // No background color
-                      border: "none",                 // No border
-                      outline: "none",                // No outline
-                      boxShadow: "none", 
-                      color:'black',  
-                      marginTop:'0px'
-                      
-                     
-                    }}
-                    className="max-w-xs mt-0  "
-                  />
-                <p className="text-center text-small">
-                  Already have an account?{" "}
-                  <Link size="sm" onPress={() => setSelected("login")}>
-                    Login
-                  </Link>
-                </p>
-                <div className="flex gap-2 justify-end">
-                  <Button fullWidth color="primary" variant='flat'>
-                    Sign up
-                  </Button>
-                </div>
-              </form>
-            </Tab>
-          </Tabs>
-        </CardBody>
-      </Card>
-    </div>
     </div>
   );
 }

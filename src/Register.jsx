@@ -1,13 +1,14 @@
-//this is here just to give the props to login page 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-
-
+import logo from "./logo5.jpeg"
+import eye from "../src/eye.png"
+import eye1 from "../src/eye1.png"
 import Modal from './Modal'; // Import the modal component
 import { jwtDecode } from 'jwt-decode'; // Correct import statement
-
+import "./Register.css"
+import "./Login.css"
 
 function Register() {
   const navigate = useNavigate();
@@ -90,7 +91,7 @@ function Register() {
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id: import.meta.env.REACT_APP_GOOGLE_CLIENT_ID,
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
       callback: handleCallbackResponse
     });
     google.accounts.id.renderButton(
@@ -202,7 +203,7 @@ function Register() {
             <div className='onlypass'>
               <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
               <div onClick={togglePasswordVisibility} className="password-toggle">
-
+                <img src={showPassword ? eye1 : eye} style={{ width: '30px' }} alt="Toggle Password Visibility" />
               </div>
             </div>
           </div>
@@ -226,7 +227,7 @@ function Register() {
       </div>
  
       <div className='company-info'>
-     
+        <img src={logo} alt="Company Logo" style={{ width: '40px', height: 'auto', marginRight: "4px" }} /><br />
         <a href="https://dynamofleet.com/" target="_blank" rel="noopener noreferrer">DynamoFleet</a> is a premium product developed by DynamoChart UG, based in Germany.<br />&copy; 2024 DynamoChart UG. All rights reserved.
       </div>
       <Modal show={showAlert} message={message} onClose={() => setShowAlert(false)} alertType={alertType} />
@@ -235,4 +236,3 @@ function Register() {
 }
 
 export default Register;
-
