@@ -7,6 +7,7 @@ import Home from './Home';
 import { CarDriverProvider } from './CarDriver';
 import Change from './Change';
 import ChangePass from './ChangePass';
+import SetPassword from './SetPassword';
 const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('userToken');
   return token ? element : <Navigate to="/login" />;
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/*" element={<PrivateRoute element={<MainPage />} />} />
           <Route path="/change-password" element={<ChangePass />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/set-password/:token" element={<SetPassword />} />
         </Routes>
       </Router>
     </CarDriverProvider>
