@@ -5,6 +5,7 @@ import Login from './Login';
 import Register from './Register';
 import Home from './Home';
 import { CarDriverProvider } from './CarDriver';
+import Change from './Change';
 import ChangePass from './ChangePass';
 const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('userToken');
@@ -17,6 +18,7 @@ const App = () => {
       <Router>
         <Routes>
         <Route path="/activate/:token" element={<Home />} /> 
+        <Route path="/reset-password/:token" element={<Change />} />
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<PrivateRoute element={<MainPage />} />} />
           <Route path="/change-password" element={<ChangePass />} />
