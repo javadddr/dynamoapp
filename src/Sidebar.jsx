@@ -25,6 +25,7 @@ if (capacity === 0 && createdAtDays < 14) {
 console.log("statusi", statusi);
 console.log("createdAtDays", createdAtDays);
 console.log("capacity", capacity);
+console.log("token", token);
 const userInfo = {
   token: token,
   userId:userId,
