@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import MainPage from './MainPage';
 import Login from './Login';
 import Register from './Register';
-
+import Home from './Home';
 import { CarDriverProvider } from './CarDriver';
 import ChangePass from './ChangePass';
 const PrivateRoute = ({ element }) => {
@@ -16,6 +16,7 @@ const App = () => {
     <CarDriverProvider>
       <Router>
         <Routes>
+        <Route path="/activate/:token" element={<Home />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<PrivateRoute element={<MainPage />} />} />
           <Route path="/change-password" element={<ChangePass />} />
