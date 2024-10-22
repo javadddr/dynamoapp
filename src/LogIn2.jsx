@@ -10,9 +10,6 @@ import { jwtDecode } from 'jwt-decode'; // Correct import statement
 ////
 
 
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
-
 
 import Modal from './Modal'; // Import the modal component
 
@@ -168,7 +165,6 @@ useEffect(() => {
   );
   const button = document.querySelector('#signInDiv div');
   if (button) {
-    button.style.border = '0px solid blue';
     button.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
     button.style.borderRadius = '5px';
     button.style.width = '344px'; // Adjust the width to be full or a specific size
@@ -303,11 +299,10 @@ useEffect(() => {
       );
       const button = document.querySelector('#signInDiv div');
       if (button) {
-        button.style.border = '1px solid blue';
         button.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
         button.style.borderRadius = '5px';
-        button.style.width = '227px'; // Adjust the width to be full or a specific size
-        button.style.maxWidth = '227px'; // Optionally, set a max width
+        button.style.width = '338px'; // Adjust the width to be full or a specific size
+        button.style.maxWidth = '338px'; // Optionally, set a max width
       }
     }, []);
     
@@ -371,7 +366,36 @@ useEffect(() => {
       }
     }, [navigate]);
   
-
+    useEffect(() => {
+      const trackHomeVisit = async () => {
+        try {
+          // Check if the visit has already been logged
+          const isVisitLogged = localStorage.getItem('homeVisitLogged');
+          if (!isVisitLogged) {
+            const response = await fetch('https://api.dynamofleet.com/dywebsite/trackAction', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ actionName: 'App-HomePage' }),
+            });
+            if (response.ok) {
+            
+              localStorage.setItem('homeVisitLogged', true);
+            } else {
+             
+            }
+          } else {
+           
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+    
+      // Call the trackHomeVisit function when the Home component mounts
+      trackHomeVisit();
+    }, [1]);
 
   return (
     <div className="flex flex-col h-screen w-screen" style={{backgroundColor:"#f4f4f5"}}>
@@ -526,9 +550,9 @@ useEffect(() => {
 <div>
                   <p className="text-center text-small">
                     Need to create an account?{" "}
-                    <span className="text-blue-600 cursor-pointer" onClick={() => setSelected("sign-up")}>
-                        Sign up.
-                      </span>
+                    <span className="text-blue-600 cursor-pointer">
+                    <Link to="/register">Sign up.</Link>
+                  </span>
 
                     </p>
                     <p className="text-center text-sm mt-0 pt-0 mb-1">
@@ -550,7 +574,7 @@ useEffect(() => {
           </div>
                 </form>
               </Tab>
-              <Tab key="sign-up" title="Sign up"  className={`${selected=='sign-up'?'focus:outline-none':''}`} style={{ outline: 'none' }}>
+              {/* <Tab key="sign-up" title="Sign up"  className={`${selected=='sign-up'?'focus:outline-none':''}`} style={{ outline: 'none' }}>
                 <form className="flex flex-col gap-4 h-[300px] focus:border-none ">
                 <p className=" text-xs">Username</p>
                   <Input  
@@ -635,7 +659,7 @@ useEffect(() => {
                     </Button>
                   </div>
                 </form>
-              </Tab>
+              </Tab> */}
             </Tabs>
           </CardBody>
         </Card>

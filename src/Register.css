@@ -214,9 +214,9 @@ font-weight: 600;
 #signInDiv{
   display: flex;
   justify-content: center;
-  max-width: 50%;
-  min-width: 50%;
-  margin-left: 25%;
+  max-width: 100%;
+  min-width:  100%;
+ border: 1px solid blue;
   border-radius: 5px;
 
 }
