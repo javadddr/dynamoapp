@@ -26,7 +26,7 @@ const FleetOverview = ({ cars, drivers,theme }) => {
   const [chartDataPie, setChartDataPie] = useState([]);
   const [equipmentData, setEquipmentData] = useState([]);
   const [areasPerformance, setAreasPerformance] = useState([]);
-console.log(activeVehiclesCount)
+
   useEffect(() => {
     const vehicleStatusCounts = cars.reduce((acc, car) => {
       const { state } = car;
@@ -376,22 +376,34 @@ const processEquipmentData = (cars, drivers) => {
       }))
     )
   );
-
+console.log(drivers)
   const driverEquipment = drivers.flatMap(driver =>
-    driver.equipments.clothing.map(item => ({
-      type: 'Driver Clothing',
-      item: item.item,
-      quantity: item.quantity,
-      cost: item.cost
-    })).concat(
-      driver.equipments.other.map(item => ({
-        type: 'For Drivers',
+    driver.equipments.clothing.map(item => {
+      const matchingEquipment = allEquipments.find(eq => eq.name === item.item);
+      return {
+        type: 'Driver Clothing',
         item: item.item,
         quantity: item.quantity,
-        cost: item.cost
-      }))
+        cost: matchingEquipment ? matchingEquipment.costPerUnit : 0 // Default to 0 if no match
+      };
+    }).concat(
+      driver.equipments.other.map(item => {
+        const matchingEquipment = allEquipments.find(eq => eq.name === item.item);
+       
+        return {
+          type: 'For Drivers',
+          item: item.item,
+          quantity: item.quantity,
+          cost: matchingEquipment ? matchingEquipment.costPerUnit : 0 // Default to 0 if no match
+          
+        };
+      
+      })
+      
     )
+    
   );
+  
 
   const combinedEquipment = [...carEquipment, ...driverEquipment];
 
@@ -603,16 +615,19 @@ useEffect(() => {
                            driver.equipments.other.reduce((acc, item) => acc + item.cost, 0);
 
     const invoiceAmount = driver.invoices.reduce((acc, invoice) => acc + invoice.amount, 0);
-
+  
     // Calculate the total cost by adding equipmentCost and invoiceAmount
-    const totalCost = equipmentCost + invoiceAmount;
+    const totalCost = (equipmentCost || 0) + (invoiceAmount || 0);
 
+
+
+    
     return {
       id: index + 1,
       firstName: driver.firstName,
       lastName: driver.lastName,
       "Total cost": totalCost,
-      value: { Equipments_Cost: equipmentCost, Invoices: invoiceAmount },
+      value: { Equipments_Cost: equipmentCost || 0, Invoices: invoiceAmount || 0 },
       tag: driver.status,
       pic: driver.picture
     };
@@ -693,7 +708,7 @@ const colorsta = {
       car => car.area && Array.isArray(car.drivers) && car.drivers.length > 0
     );
   
-    console.log("Filtered Cars: ", filteredCars);
+
   
     // Iterate over each filtered car
     filteredCars.forEach(car => {
@@ -731,7 +746,27 @@ const colorsta = {
   
   }, [cars]);
   
-  
+  //////
+  const [allEquipments, setAllEquipments] = useState([]);
+  console.log("allEquipments",allEquipments)
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    const fetchAllEquipments = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/driverEquipments`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        if (!response.ok) throw new Error('Failed to fetch equipments');
+        const data = await response.json();
+        setAllEquipments(data);
+      
+      } catch (error) {
+        console.error('Error fetching equipments:', error);
+      }
+    };
+    
+    fetchAllEquipments();
+  }, []); // Run once on component mount
   
 
   return (
@@ -815,14 +850,14 @@ const colorsta = {
     
   
       <LiniTwoSec theme={theme} chartData={chartData1}/>
-      <div className="flex flex-col md:flex-row w-[88%] justify-between">
+      <div className="flex flex-col md:flex-row md:w-[80%] w-[93%] justify-between">
         <Piei chartData={chartDataPie} theme={theme.theme} chartConfig={chartConfig} title={title1} />
         <Piei chartData={chartDataPieDrivers} theme={theme.theme} chartConfig={chartConfigo} title={title2}/>
-        <div className={`w-[90%] md:w-[32%]  font-sans mt-4 ${
+        <div className={`w-[90%] md:w-[60%]  font-sans ml-3 mt-4 ${
       theme.theme === 'dark' ? 'dark' : 'light'
     }`}>
-       <Tablei users={equipmentData} theme={theme.theme}/>
-        </div>
+<Tablei users={equipmentData} theme={theme.theme}/>
+</div>
       </div>
   
   
@@ -832,15 +867,16 @@ const colorsta = {
     <TwoBar theme={theme.theme} originalData={statusDuringTimeForDrivers} originalData1={statusDuringTimeForCars} chartConfig1={chartConfigw} chartConfig={chartConfigp} labels={labels} labels1={labelso} titleo={"Drivers"} titleo1={"Vehicles"}/>
     </div>
 
-      <div className='flex w-[88%] ml-[6%]  mt-5 shadow-2xl '>
+      <div className='flex w-[88%] ml-[6%]  mt-5  '>
       <div className='flex w-[58%]  mr-[5%] '>
        <TablePic rows={rows} colorsta={colorsta} theme={theme.theme}/>
        </div>
        <ThreeBar data={fines} theme={theme.theme} title={title}/>
       </div>
    
-      <div className='  pb-5 '>
+      <div className='  pb-5 flex'>
 <Bari chartData={areasPerformance} theme={theme.theme}/>
+
 </div>
     </div>
   )

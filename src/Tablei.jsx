@@ -17,6 +17,9 @@ export default function Tablei({ users,theme }) {
   return (
     
       <Table 
+      color="danger"
+      selectionMode="single" 
+      defaultSelectedKeys={["1"]} 
       className={`shadow-xl ${theme === 'dark' ? 'text-gray-50 dark' : ''}`}
         aria-label="Example table with client side pagination"
         bottomContent={
@@ -34,9 +37,10 @@ export default function Tablei({ users,theme }) {
           </div>
         }
         classNames={{
-          wrapper: "min-h-[375px]", // Set the minimum height to 400px
+          wrapper: "min-h-[389px]", // Set the minimum height to 400px
         }}
       >
+        
         <TableHeader>
           <TableColumn key="type">Equipment Type</TableColumn>
           <TableColumn key="item">Item</TableColumn>

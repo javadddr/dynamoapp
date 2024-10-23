@@ -32,7 +32,7 @@ const chartConfig = {
     color: "hsl(var(--chart-2))",
   },
   DriverRation: {
-    label: "Driver Ration",
+    label: "Driver Ratio",
     color: "hsl(var(--chart-3))",
   },
 };
@@ -117,7 +117,7 @@ export function LiniTwoSec({ theme, chartData }) {
                 Drivers
               </SelectItem>
               <SelectItem value="DriverRation" className="rounded-lg">
-                Driver Ration
+                Driver Ratio
               </SelectItem>
             </SelectContent>
           </Select>

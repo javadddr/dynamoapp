@@ -29,7 +29,7 @@ const chartConfig = {
 
 const Bari = ({ chartData,theme }) => {
   return (
-    <Card className={`w-[40%] ml-[6%] mt-5 ${theme === 'dark' ? 'dark' : 'light'}  shadow-2xl`}>
+    <Card className={`w-[40%] ml-[6%] mt-5 shadow-2xl ${theme === 'dark' ? 'dark' : 'light'}  shadow-2xl`}>
       <CardHeader>
        
         <CardDescription>Number of Drivers and Vehicles vs Areas</CardDescription>

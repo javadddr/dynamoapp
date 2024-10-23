@@ -25,7 +25,7 @@ const ThreeBar = ({ data,title, theme }) => {
   const chartData = data;
 
   return (
-    <Card className={`w-[40%] ${theme === 'dark' ? 'dark' : 'light'}`}>
+    <Card className={`w-[40%] ${theme === 'dark' ? 'dark' : 'light'} shadow-2xl`}>
       <CardHeader>
         <CardDescription>{title}</CardDescription>
       </CardHeader>

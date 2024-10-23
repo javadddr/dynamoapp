@@ -32,8 +32,9 @@ const userInfo = {
 };
 
 const handleSubscribeClick = () => {
-  const { token, userId } = userInfo;
-
+ 
+console.log("token",token)
+console.log("userId",userId)
   if (!token || !userId) {
     console.error("User token or ID is missing!");
     return; // Exit if no token or userId is available

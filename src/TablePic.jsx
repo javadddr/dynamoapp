@@ -28,13 +28,16 @@ const TablePic = ({ rows, colorsta,theme }) => {
   // Calculate the total number of pages
   const pages = Math.ceil(rows.length / rowsPerPage);
 
-  // Get the current page items
   const items = useMemo(() => {
+    const sortedRows = [...rows].sort((a, b) => b["Total cost"] - a["Total cost"]); // Sort by "Total cost" in descending order
+  
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-
-    return rows.slice(start, end);
+    return sortedRows.slice(start, end);
   }, [page, rows]);
+  
+  
+  
 
   // Function to render cells based on the column key
   const renderCell = useCallback(
@@ -75,7 +78,7 @@ const TablePic = ({ rows, colorsta,theme }) => {
   return (
     
     <Table
-    className={`${theme === 'dark' ? 'dark' : 'light'} ${theme === 'dark' ? 'text-white' : 'black'}`}
+    className={`${theme === 'dark' ? 'dark' : 'light'} ${theme === 'dark' ? 'text-white' : 'black'} shadow-2xl`}
       aria-label="Example  table with custom cells and pagination"
       bottomContent={
         <div className="flex w-full  justify-center">
