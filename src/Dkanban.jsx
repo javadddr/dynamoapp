@@ -59,12 +59,12 @@ const Dkanban = ({ cars, theme, activeStatuses,drivers, updateDriverStatusInCont
   
 
   const statusStyles = {
-    'Active': 'bg-green-100 text-green-900',
-    'Inactive': 'bg-gray-300 text-slate-500',
-    'Sick': 'bg-blue-100 text-blue-800',
-    'Holiday': 'bg-yellow-100 text-yellow-800',
-    'Over Hours': 'bg-purple-100 text-purple-800',
-    'Work Accident': 'bg-red-100 text-red-800',
+    'Active': 'success',
+    'Inactive': 'default',
+    'Sick': 'danger',
+    'Holiday': 'warning',
+    'Over Hours': 'primary',
+    'Work Accident': 'secondary',
   };
 
   const handleDragStart = (e, driverId) => {
@@ -220,14 +220,9 @@ const renderPipeline = (statuses) => (
         onDrop={(e) => handleDrop(e, status)}
       >
         <div className="flex flex-col h-full overflow-hidden">
-          <Chip
-            variant="dot"
-            radius="sm"
-            size="lg"
-            className={` mb-1 text-sm border-1 font-semibold ${statusStyles[status]}`}
-          >
-            {status}
-          </Chip>
+         
+             <Button color={statusStyles[status]} variant='flat' className={` mb-1 text-sm font-semibold`}> {status}</Button>
+      
           <div
             className={`${
               theme === "dark"

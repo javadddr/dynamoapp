@@ -56,7 +56,8 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
   const [displayedData, setDisplayedData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
+const [totaliCost, setTotaliCost] = useState(0);
+const [aveCost, setAveCost] = useState(0);
 
   const [allEquipments, setAllEquipments] = useState([]);
   useEffect(() => {
@@ -117,29 +118,39 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
   
       const transformData = (data) => {
         const { clothing, other } = data;
-  
-        const calculateCost = (itemName, quantity) => {
-          const matchedEquipment = allEquipments.find(equipment => equipment.name === itemName);
-          return matchedEquipment ? matchedEquipment.costPerUnit * quantity : 0; // Default to 0 if no match
-        };
-  
-        const transformedCarEquipment = clothing.map(equipment => ({
-          ...equipment,
-          type: "clothing",
-          cost: calculateCost(equipment.item, equipment.quantity), // Calculate cost
-        }));
-  
-        const transformedWorkEquipment = other.map(equipment => ({
-          ...equipment,
-          type: "other",
-          cost: calculateCost(equipment.item, equipment.quantity), // Calculate cost
-        }));
-  
-        // Combine both arrays into one
+      
+        const transformedCarEquipment = clothing.map(equipment => {
+          const matchingEquipment = allEquipments.find(eq => eq.name === equipment.item);
+          return {
+            ...equipment,
+            type: "clothing",
+            item: equipment.item,
+            date:equipment.date,
+            cost: matchingEquipment ? matchingEquipment.costPerUnit * equipment.quantity : 0 // Calculate total cost
+          };
+        });
+      
+        const transformedWorkEquipment = other.map(equipment => {
+          const matchingEquipment = allEquipments.find(eq => eq.name === equipment.item);
+          return {
+            ...equipment,
+            type: "other",
+            item: equipment.item,
+            date:equipment.date,
+            cost: matchingEquipment ? matchingEquipment.costPerUnit * equipment.quantity : 0 // Calculate total cost
+          };
+        });
+        const combinedEquipment = [...transformedCarEquipment, ...transformedWorkEquipment];
+        const totalCost = combinedEquipment.reduce((sum, item) => sum + item.cost, 0);
+        const averageCost = combinedEquipment.length > 0 ? totalCost / combinedEquipment.length : 0; // Avoid division by zero
+setTotaliCost(totalCost)
+setAveCost(averageCost)
         return [...transformedCarEquipment, ...transformedWorkEquipment];
       };
+      
   
       const transformedData = transformData(data);
+console.log("transformedData",transformedData)
       setEquipments(transformedData);
       setDisplayedData(transformedData.slice(0, 5));
       setHasMore(transformedData.length > 5);
@@ -224,8 +235,7 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
       setLoading(false);
     }, 1000);
   };
-  console.log("equipments2",equipments)
-  // Initial loading of the first few items
+
   useEffect(() => {
     setDisplayedData(displayedData.slice(0, 5)); // Load first 5 items initially
   }, [equipments]);
@@ -295,7 +305,7 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
   // Calculate the average of all cars' equipment costs
   const averageDriverCost = totalCostSum / driverCount;
   
- 
+
 
   const driverEquipments = [...driver.equipments.clothing, ...driver.equipments.other];
 
@@ -304,7 +314,7 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
   
   // Calculate average amount for this car's equipment
   const averageAmount = driverEquipments.length > 0 ? totalAmount / driverEquipments.length : 0;
-  
+
 
   
   const getChartDataByMonthForEquipment = (equipments) => {
@@ -334,7 +344,7 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
   };
   
   // Example usage
-  const chartData = getChartDataByMonthForEquipment([...driver.equipments.clothing, ...driver.equipments.other]);
+  const chartData = getChartDataByMonthForEquipment(equipments);
   
 
   
@@ -467,7 +477,7 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
 
       <Card
       size="small"
-      title={<span style={{ color: 'orange' }}>All the vehicles</span>}
+      title={<span style={{ color: 'orange' }}>All the drivers</span>}
       bordered={!isDarkMode}
       hoverable={true}
       className="text-orange-700"
@@ -495,8 +505,8 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
       }}
     >
       <p></p>
-      {/* <p className="text-orange-700">Average cost per invoice: <span className="text-blue-500 font-bold">{averageCosto.toFixed(0)}</span></p>
-      <p className="text-orange-700">Sum costs: <span className="text-blue-500 font-bold">{totalCosto.toFixed(0)}</span></p> */}
+      <p className="text-orange-700">Average cost per invoice: <span className="text-blue-500 font-bold">{aveCost}</span></p>
+      <p className="text-orange-700">Sum costs: <span className="text-blue-500 font-bold">{totaliCost}</span></p>
   
     
     </Card>

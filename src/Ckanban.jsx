@@ -63,13 +63,13 @@ const getCurrentDrivers = (carDrivers) => {
 };
 
   const statusStyles = {
-    'Active': 'bg-green-100 text-green-900',
-    'Inactive': 'bg-gray-300 text-slate-500',
-    'Incoming': 'bg-blue-100 text-blue-800',
-    'Outgoing': 'bg-yellow-100 text-yellow-800',
-    'Transferring': 'bg-purple-100 text-purple-800',
-    'Repairing': 'bg-red-100 text-red-800',
-    'No Driver': 'bg-pink-100 text-pink-800',
+    'Active': 'success',
+    'Inactive': 'default',
+    'Incoming': 'success',
+    'Outgoing': 'secondary',
+    'Transferring': 'primary',
+    'Repairing': 'warning',
+    'No Driver': 'danger',
   };
 
   const handleDragStart = (e, carId) => {
@@ -199,14 +199,9 @@ const closePopup = () => {
           onDrop={(e) => handleDrop(e, status)}
         >
           <div className="flex flex-col h-full overflow-hidden">
-            <Chip
-              variant="dot"
-              radius="sm"
-              size="lg"
-              className={` mb-1 text-sm border-1 font-semibold  ${statusStyles[status]}`}
-            >
-              {status}
-            </Chip>
+           
+              <Button color={statusStyles[status]} variant='flat' className={` mb-1 text-sm font-semibold`}> {status}</Button>
+        
             <div className={`${theme === 'dark' ? 'bg-gray-600 border border-gray-700' : 'bg-gray-200'} rounded-lg shadow p-2 flex-1 overflow-auto scrollbar-hidden  ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-slate-200'}`}>
             {cars
               .filter((car) => car.state === status)
