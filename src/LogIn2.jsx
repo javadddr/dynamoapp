@@ -8,7 +8,7 @@ import Typed from 'typed.js';
 import Footerlogin from "./FooterLogin"
 import { jwtDecode } from 'jwt-decode'; // Correct import statement
 ////
-import Register from './Register';
+import "./Register.css";
 
 
 import Modal from './Modal'; // Import the modal component
@@ -165,10 +165,9 @@ useEffect(() => {
   );
   const button = document.querySelector('#signInDiv div');
   if (button) {
-    button.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
+  
     button.style.borderRadius = '5px';
-    button.style.width = '344px'; // Adjust the width to be full or a specific size
-    button.style.maxWidth = '344px'; // Optionally, set a max width
+  
   }
 }, []);
   useEffect(() => {
@@ -301,8 +300,7 @@ useEffect(() => {
       if (button) {
         
         button.style.borderRadius = '5px';
-        button.style.width = '338px'; // Adjust the width to be full or a specific size
-        button.style.maxWidth = '338px'; // Optionally, set a max width
+
       }
     }, []);
     
