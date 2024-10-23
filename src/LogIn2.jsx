@@ -671,7 +671,7 @@ useEffect(() => {
           <div className="greenSquare"></div>
           <div className="greenSquare2"></div>
         </div>
-        <div  >
+        <div  style={{marginTop:'47px'}}>
         <Footerlogin/>
         </div>
 
