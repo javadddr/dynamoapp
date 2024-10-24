@@ -9,6 +9,7 @@ import Change from './Change';
 import ChangePass from './ChangePass';
 import SetPassword from './SetPassword';
 import LogIn2 from './LogIn2';
+import Register2 from './Register2';
 const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('userToken');
   return token ? element : <Navigate to="/login" />;
@@ -24,7 +25,7 @@ const App = () => {
           <Route path="/login" element={<LogIn2 />} />
           <Route path="/*" element={<PrivateRoute element={<MainPage />} />} />
           <Route path="/change-password" element={<ChangePass />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register2 />} />
           <Route path="/set-password/:token" element={<SetPassword />} />
         </Routes>
       </Router>

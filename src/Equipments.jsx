@@ -371,12 +371,12 @@ const deleteEquipment = async (id, type) => {
 <form onSubmit={handleSubmit} className={`h-[450px] p-0 m-0 w-[400px] ${isDarkMode ? 'bg-gray-200 text-black' : 'bg-white text-black'}`}>
 
 <div className="isufinvvb mb-1">
-        <div className={`text-sm text-black `}>Item ID:</div>
+        <div className={`text-sm text-black `}>Quantity:</div>
  <Input
   className='border-slate-300 text-sm p-3 m-0'
   name="itemId"
   type="number"
-  placeholder="Item ID"
+  placeholder="Quantity"
   value={form.itemId}
   onChange={handleChange}
   required
@@ -569,6 +569,7 @@ const deleteEquipment = async (id, type) => {
         <TableColumn>Description</TableColumn>
         <TableColumn>Name</TableColumn>
         <TableColumn>Cost Per Unit</TableColumn>
+        <TableColumn>Quantity</TableColumn>
         <TableColumn>Vendor</TableColumn>
         <TableColumn>Buying Url</TableColumn>
         <TableColumn>Action</TableColumn>
@@ -598,6 +599,7 @@ const deleteEquipment = async (id, type) => {
 
             <TableCell>{fine.name}</TableCell>
             <TableCell>{fine.costPerUnit}</TableCell>
+            <TableCell>{fine.itemId}</TableCell>
             <TableCell>{fine.vendor}</TableCell>
             <TableCell
   style={{

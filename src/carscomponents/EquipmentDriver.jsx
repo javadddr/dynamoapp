@@ -16,17 +16,24 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
   const isDarkMode = theme === 'dark';
   const [driver, setDriver] = useState(propDriver);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-  const [equipments, setEquipments] = useState({ clothing: [], other: [] });
-  console.log("equipments1",equipments)
-  useEffect(() => {
-    fetchEquipments();
-  }, [setEquipments]);
+  const [equipments, setEquipments] = useState([]);
+  const [allEquipments, setAllEquipments] = useState([]);
+  console.log("equipments",equipments)
   const [openDialog, setOpenDialog] = useState(false);
+  const [chartData, setChartData] = useState();
   const [equipmentToDelete, setEquipmentToDelete] = useState(null);
  
   const toggleAccordion = () => {
     setIsAccordionOpen(prev => !prev); // Toggle accordion open/close
   };
+  useEffect(() => {
+    const fetchAndSetEquipmentsT = async () => {
+      await fetchAndSetEquipments();
+     
+    };
+    
+    fetchAndSetEquipmentsT();
+  }, [2]); // Run once on component mount
 
   const { Option } = Select;
   const [showAlert, setShowAlert] = useState(false); 
@@ -59,24 +66,10 @@ function EquipmentDriver({theme, driver: propDriver, onDriverUpdate}) {
 const [totaliCost, setTotaliCost] = useState(0);
 const [aveCost, setAveCost] = useState(0);
 
-  const [allEquipments, setAllEquipments] = useState([]);
-  useEffect(() => {
-    const fetchAllEquipments = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/driverEquipments`, {
-          headers: { 'Authorization': `Bearer ${token}` },
-        });
-        if (!response.ok) throw new Error('Failed to fetch equipments');
-        const data = await response.json();
-        setAllEquipments(data);
-      } catch (error) {
-        console.error('Error fetching equipments:', error);
-      }
-    };
+  
+
     
-    fetchAllEquipments();
-    fetchEquipments()
-  }, []); // Run once on component mount
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewEquipment({ ...newEquipment, [name]: value });
@@ -106,61 +99,72 @@ const [aveCost, setAveCost] = useState(0);
     }
   };
 
-  const fetchEquipments = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/drivers/${driver._id}/equipment`, {
-        headers: { 'Authorization': `Bearer ${token}` },
-      });
-  
-      if (!response.ok) throw new Error('Failed to fetch equipments');
-      const data = await response.json();
  
-  
-      const transformData = (data) => {
-        const { clothing, other } = data;
-      
-        const transformedCarEquipment = clothing.map(equipment => {
-          const matchingEquipment = allEquipments.find(eq => eq.name === equipment.item);
-          return {
-            ...equipment,
-            type: "clothing",
-            item: equipment.item,
-            date:equipment.date,
-            cost: matchingEquipment ? matchingEquipment.costPerUnit * equipment.quantity : 0 // Calculate total cost
-          };
+    const fetchAndSetEquipments = async () => {
+      try {
+        // Fetch all available equipment
+        const allEquipmentsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/driverEquipments`, {
+          headers: { 'Authorization': `Bearer ${token}` },
         });
-      
-        const transformedWorkEquipment = other.map(equipment => {
-          const matchingEquipment = allEquipments.find(eq => eq.name === equipment.item);
-          return {
-            ...equipment,
-            type: "other",
-            item: equipment.item,
-            date:equipment.date,
-            cost: matchingEquipment ? matchingEquipment.costPerUnit * equipment.quantity : 0 // Calculate total cost
-          };
-        });
-        const combinedEquipment = [...transformedCarEquipment, ...transformedWorkEquipment];
-        const totalCost = combinedEquipment.reduce((sum, item) => sum + item.cost, 0);
-        const averageCost = combinedEquipment.length > 0 ? totalCost / combinedEquipment.length : 0; // Avoid division by zero
-setTotaliCost(totalCost)
-setAveCost(averageCost)
-        return [...transformedCarEquipment, ...transformedWorkEquipment];
-      };
-      
+        if (!allEquipmentsResponse.ok) throw new Error('Failed to fetch all equipments');
+        const allEquipmentsData = await allEquipmentsResponse.json();
   
-      const transformedData = transformData(data);
-console.log("transformedData",transformedData)
-      setEquipments(transformedData);
-      setDisplayedData(transformedData.slice(0, 5));
-      setHasMore(transformedData.length > 5);
-    } catch (error) {
-      console.error('Error fetching equipments:', error);
-    }
-  };
-//   const costs = equipments.map(equipment => equipment.cost);
+        // Fetch driver's equipment
+        const driverEquipmentsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/drivers/${driver._id}/equipment`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        if (!driverEquipmentsResponse.ok) throw new Error('Failed to fetch driver equipments');
+        const driverEquipmentsData = await driverEquipmentsResponse.json();
+        setAllEquipments(allEquipmentsData)
+        // Transform the data using the fetched allEquipmentsData
+        const transformData = (data) => {
+          const { clothing, other } = data;
+  
+          const transformedCarEquipment = clothing.map(equipment => {
+            const matchingEquipment = allEquipmentsData.find(eq => eq.name === equipment.item);
+            return {
+              ...equipment,
+              type: "clothing",
+              item: equipment.item,
+              date: equipment.date,
+              cost: matchingEquipment ? matchingEquipment.costPerUnit * equipment.quantity : 0
+            };
+          });
+  
+          const transformedWorkEquipment = other.map(equipment => {
+            const matchingEquipment = allEquipmentsData.find(eq => eq.name === equipment.item);
+            return {
+              ...equipment,
+              type: "other",
+              item: equipment.item,
+              date: equipment.date,
+              cost: matchingEquipment ? matchingEquipment.costPerUnit * equipment.quantity : 0
+            };
+          });
+  
+          const combinedEquipment = [...transformedCarEquipment, ...transformedWorkEquipment];
+          const totalCost = combinedEquipment.reduce((sum, item) => sum + item.cost, 0);
+          const averageCost = combinedEquipment.length > 0 ? totalCost / combinedEquipment.length : 0;
+          
+          setTotaliCost(totalCost);
+          setAveCost(averageCost);
+  
+          return combinedEquipment;
+        };
+  
+        const transformedData = transformData(driverEquipmentsData);
+        setEquipments(transformedData);
+        setDisplayedData(transformedData.slice(0, 5));
+        setHasMore(transformedData.length > 5);
+      } catch (error) {
+        console.error('Error fetching equipments:', error);
+      }
+    };
+  
 
-// console.log(costs)
+
+  
+
 
 
   const addEquipment = async (e) => {
@@ -193,7 +197,7 @@ console.log("transformedData",transformedData)
     }
   
       
-      fetchEquipments();
+    fetchAndSetEquipments();
       // Reset the form fields
       setNewEquipment({
         date: '',
@@ -227,7 +231,7 @@ console.log("transformedData",transformedData)
   const loadMoreData = () => {
 
     setLoading(true);
-    fetchEquipments();
+    fetchAndSetEquipments();
     setTimeout(() => {
       const newEquipments = [...equipments.clothing, ...equipments.other];
       setDisplayedData(newEquipments.slice(0, displayedData.length + 5)); // Load 5 more items
@@ -261,7 +265,7 @@ console.log("transformedData",transformedData)
     
       setDriver(updatedNoteequipmet.driver);
       setOpenDialog(false); // Close the dialog
-      fetchEquipments(); // Refresh the equipments list
+      fetchAndSetEquipments(); // Refresh the equipments list
     } catch (error) {
       console.error('Error deleting equipment:', error);
      
@@ -282,25 +286,36 @@ console.log("transformedData",transformedData)
  
   drivers.forEach(driver => {
     const driverEquipments = [...driver.equipments.clothing, ...driver.equipments.other];
+  
+    // Calculate the sum of costs for this driver's equipment
+    const driverTotalCost = driverEquipments.reduce((sum, equipment) => {
+      const matchingEquipment = allEquipments.find(eq => eq.name === equipment.item);
+      
+      if (matchingEquipment) {
+        return sum + matchingEquipment.cost;
+      } else {
+        console.warn(`No matching equipment found for ${equipment.item}`);
+        return sum; // If no match is found, skip this equipment
+      }
+    }, 0);
+  
 
-    // Calculate the sum of costs for this car
-    const driverTotalCost = driverEquipments.reduce((sum, equipment) => sum + equipment.cost, 0);
-    
     totalCostSum += driverTotalCost;
     driverCount++;
   
-    // Track max car based on total sum cost
+    // Track the driver with the maximum total cost
     if (driverTotalCost > maxSumCost) {
       maxSumCost = driverTotalCost;
       maxDriver = driver;
     }
   
-    // Track min car, but exclude cars with a zero total cost
+    // Track the driver with the minimum total cost (but exclude drivers with zero cost)
     if (driverTotalCost > 0 && driverTotalCost < minSumCost) {
       minSumCost = driverTotalCost;
       minDriver = driver;
     }
   });
+  
   
   // Calculate the average of all cars' equipment costs
   const averageDriverCost = totalCostSum / driverCount;
@@ -317,35 +332,41 @@ console.log("transformedData",transformedData)
 
 
   
-  const getChartDataByMonthForEquipment = (equipments) => {
-    const monthlyData = {};
-  
-    equipments.forEach((equipment) => {
+  useEffect(() => {
+    if (!Array.isArray(equipments)) {
+      console.error('equipments is not an array:', equipments);
+      return []; // Return an empty array or handle accordingly
+   }
+
+   const monthlyData = {};
+
+   equipments.forEach((equipment) => {
       const date = new Date(equipment.date);
       const monthNumber = date.getMonth(); // Get the month as a number (0-11)
       const month = date.toLocaleString('default', { month: 'long' });
-  
+
       if (!monthlyData[monthNumber]) {
-        monthlyData[monthNumber] = { month, amount: 0 };
+         monthlyData[monthNumber] = { month, amount: 0 };
       }
-  
+
       monthlyData[monthNumber].amount += equipment.cost;
-    });
-  
-    // Convert object to array and sort by monthNumber (key)
-    const chartData = Object.keys(monthlyData)
+   });
+
+   // Convert object to array and sort by monthNumber (key)
+   const chartData = Object.keys(monthlyData)
       .map((key) => ({
-        month: monthlyData[key].month,
-        desktop: monthlyData[key].amount,
+         month: monthlyData[key].month,
+         desktop: monthlyData[key].amount,
       }))
-      .sort((a, b) => new Date(`1 ${a.month} 2000`) - new Date(`1 ${b.month} 2000`)); // Sort months based on their order
+      .sort((a, b) => a.month - b.month); // Sort by the month number
+console.log("chartData",chartData)
+    setChartData(chartData);
+  }, [equipments]); // Add "equipments" to dependency array so it re-runs when equipment data changes
   
-    return chartData;
-  };
   
-  // Example usage
-  const chartData = getChartDataByMonthForEquipment(equipments);
+ 
   
+
 
   
 
@@ -474,7 +495,7 @@ console.log("transformedData",transformedData)
       </div>
       <div className="flex justify-between mb-3">
       <Space direction="horizental" className="flex flex-col justify-start mb-2" size={16}>
-
+{/* 
       <Card
       size="small"
       title={<span style={{ color: 'orange' }}>All the drivers</span>}
@@ -490,7 +511,7 @@ console.log("transformedData",transformedData)
       <p className="text-orange-700">Total Average: <span className="text-blue-500 font-bold">{averageDriverCost.toFixed(0)}</span> </p>
       <p className="text-orange-700">Highest invoice amount: <span className="text-blue-500 font-bold">{maxSumCost.toFixed(0)}</span></p>
       <p className="text-orange-700">Lowest invoice amount: <span className="text-blue-500 font-bold">{minSumCost.toFixed(0)}</span></p>
-    </Card>
+    </Card> */}
     <Card
       size="small"
       title={<span style={{ color: 'orange' }}>This driver: {driver.firstName}</span>}

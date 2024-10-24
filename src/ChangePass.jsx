@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Footerlogin from "./FooterLogin"
-
+import { Card, CardBody, Button } from '@nextui-org/react';
 function ChangePass() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -94,13 +94,16 @@ function ChangePass() {
               required 
               className="p-2 border border-gray-300 rounded-md w-[300px]"
             />
-            <button
+            <Button
               type="submit"
-              className="bg-blue-600 text-white p-2 w-[100px] rounded-md hover:bg-blue-700"
+              className=" p-2 w-[100px]"
               disabled={isLoading}
+              color='success'
+              variant='flat'
+              radius="sm"
             >
               Request
-            </button>
+            </Button>
           </form>
           </div>
         </div>

@@ -34,6 +34,7 @@ const chartConfig = {
 };
 
 function Barforgeneral({theme,chartData,title}) {
+  
   return (
     <div className="flex items-center ">
     <div>
