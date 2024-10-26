@@ -368,18 +368,18 @@ useEffect(() => {
       const trackHomeVisit = async () => {
         try {
           // Check if the visit has already been logged
-          const isVisitLogged = localStorage.getItem('homeVisitLogged');
+          const isVisitLogged = localStorage.getItem('App-HomePage-Login');
           if (!isVisitLogged) {
             const response = await fetch('https://api.dynamofleet.com/dywebsite/trackAction', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ actionName: 'App-HomePage-login' }),
+              body: JSON.stringify({ actionName: 'App-HomePage-Login' }),
             });
             if (response.ok) {
             
-              localStorage.setItem('homeVisitLogged', true);
+              localStorage.setItem('App-HomePage-Login', true);
             } else {
              
             }

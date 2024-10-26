@@ -26,7 +26,36 @@ const FleetOverview = ({ cars, drivers,theme }) => {
   const [chartDataPie, setChartDataPie] = useState([]);
   const [equipmentData, setEquipmentData] = useState([]);
   const [areasPerformance, setAreasPerformance] = useState([]);
-
+  useEffect(() => {
+    const trackHomeVisit = async () => {
+      try {
+        // Check if the visit has already been logged
+        const isVisitLogged = localStorage.getItem('App-HomePage-Dash');
+        if (!isVisitLogged) {
+          const response = await fetch('https://api.dynamofleet.com/dywebsite/trackAction', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ actionName: 'App-HomePage-Dash' }),
+          });
+          if (response.ok) {
+          
+            localStorage.setItem('App-HomePage-Dash', true);
+          } else {
+           
+          }
+        } else {
+         
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    // Call the trackHomeVisit function when the Home component mounts
+    trackHomeVisit();
+  }, [1]);
   useEffect(() => {
     const vehicleStatusCounts = cars.reduce((acc, car) => {
       const { state } = car;

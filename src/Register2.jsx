@@ -157,7 +157,7 @@ useEffect(() => {
   const trackHomeVisit = async () => {
     try {
       // Check if the visit has already been logged
-      const isVisitLogged = localStorage.getItem('homeVisitLogged');
+      const isVisitLogged = localStorage.getItem('App-HomePage-Register');
       if (!isVisitLogged) {
         const response = await fetch('https://api.dynamofleet.com/dywebsite/trackAction', {
           method: 'POST',
@@ -168,7 +168,7 @@ useEffect(() => {
         });
         if (response.ok) {
         
-          localStorage.setItem('homeVisitLogged', true);
+          localStorage.setItem('App-HomePage-Register', true);
         } else {
          
         }
