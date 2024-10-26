@@ -376,7 +376,7 @@ const processEquipmentData = (cars, drivers) => {
       }))
     )
   );
-console.log(drivers)
+
   const driverEquipment = drivers.flatMap(driver =>
     driver.equipments.clothing.map(item => {
       const matchingEquipment = allEquipments.find(eq => eq.name === item.item);
@@ -766,7 +766,7 @@ const colorsta = {
     };
     
     fetchAllEquipments();
-  }, []); // Run once on component mount
+  }, []);
   
 
   return (
@@ -774,7 +774,7 @@ const colorsta = {
     <div className="mainfleeto" style={{ backgroundColor: theme.theme === 'dark' ? '#141C26' : '#f5f8fa'}}>
       <div className='maindashdd'>
           <div className="kpi-container">
-          <div className="kpi w-[90%] md:w-[32%] animate-slide-up" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+          <div className="kpi w-[70%] md:w-[17%] animate-slide-up" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
 
           <div style={{ borderBottom:"1px solid #9d9a9a", paddingBottom:"3px", marginBottom:"9px", color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d' }}>Vehicles</div>
           <div className="kpi-title" style={{ color: theme.theme === 'dark' ? '#F28E2C' : '#738499' }}>Total Vehicles</div>
@@ -783,16 +783,6 @@ const colorsta = {
           <div className="kpi-value" style={{ color: theme.theme === 'dark' ? '#bad030' : '#011e3d' }}>{activeVehiclesCount}</div>
           <div className="kpi-subtext"><span style={{ color: "#27ce88", backgroundColor: theme.theme === 'dark' ? '#020917' : '#e1faee', width: "100%", textAlign: "center", padding: "5px", borderRadius: "5px" }}>  {isNaN(activepercar) ? 0 : activepercar}% Active</span></div>
           <div className="greenSquarey"></div>
-          <div className="greenSquare2y"></div>
-            </div>
-            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-200" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
-            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>Drivers</div>
-              <div className="kpi-title" style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499',}}>Total Drivers</div>
-              <div className="kpi-value"  style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}>{drivers.length}</div>
-              <div className="kpi-title" style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499'}}>Active Drivers</div>
-              <div className="kpi-value"  style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}>{activeVehiclesCount2}</div>
-              <div className="kpi-subtext"> <span style={{color:"#27ce88",backgroundColor:theme.theme === 'dark' ? '#020917' : '#e1faee',width:"100%",textAlign:"center",padding:"5px",borderRadius:"5px"}}>{isNaN(activeperdriver) ? 0 : activeperdriver}% Active</span></div>
-              <div className="greenSquarey"></div>
           <div className="greenSquare2y"></div>
             </div>
             <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-400" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
@@ -807,6 +797,18 @@ const colorsta = {
                   <div className="greenSquarey"></div>
           <div className="greenSquare2y"></div>
             </div>
+            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-200" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>Drivers</div>
+              <div className="kpi-title" style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499',}}>Total Drivers</div>
+              <div className="kpi-value"  style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}>{drivers.length}</div>
+              
+              <div className="kpi-title" style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499'}}>Active Drivers</div>
+              <div className="kpi-value"  style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}>{activeVehiclesCount2}</div>
+              <div className="kpi-subtext"> <span style={{color:"#27ce88",backgroundColor:theme.theme === 'dark' ? '#020917' : '#e1faee',width:"100%",textAlign:"center",padding:"5px",borderRadius:"5px"}}>{isNaN(activeperdriver) ? 0 : activeperdriver}% Active</span></div>
+              <div className="greenSquarey"></div>
+          <div className="greenSquare2y"></div>
+            </div>
+           
             <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-600" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
             <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>Driver Status</div>
 

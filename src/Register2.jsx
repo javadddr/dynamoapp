@@ -154,6 +154,36 @@ const handleSubmiti = async (e) => {
   }
 };
 useEffect(() => {
+  const trackHomeVisit = async () => {
+    try {
+      // Check if the visit has already been logged
+      const isVisitLogged = localStorage.getItem('homeVisitLogged');
+      if (!isVisitLogged) {
+        const response = await fetch('https://api.dynamofleet.com/dywebsite/trackAction', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ actionName: 'App-HomePage-Register' }),
+        });
+        if (response.ok) {
+        
+          localStorage.setItem('homeVisitLogged', true);
+        } else {
+         
+        }
+      } else {
+       
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  // Call the trackHomeVisit function when the Home component mounts
+  trackHomeVisit();
+}, [1]);
+useEffect(() => {
   /* global google */
   google.accounts.id.initialize({
     client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
