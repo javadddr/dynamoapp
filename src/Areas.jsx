@@ -196,7 +196,7 @@ const deleteEquipment = async (id) => {
   };
 
     if (loading) {
-      return <Loading />; // Show loading component while data is being fetched
+      return <Loading/>; // Show loading component while data is being fetched
     }
     const userRoles = localStorage.getItem('userRoles');  
     console.log(areas)

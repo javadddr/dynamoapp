@@ -1,8 +1,9 @@
 import React from 'react';
 
 function Loading() {
+ 
   return (
-    <div className='mainloading23'>
+    <div className={`mainloading23 `} >
       <div className="loaderi">
         <span>Loading...</span>
       </div>

@@ -9,8 +9,7 @@ import {
 } from '@ant-design/icons';
 import "./Sidebar.css"
 import { Menu } from 'antd';
-const token = localStorage.getItem('userToken');
-const userId = localStorage.getItem('userId');
+
 
 const userRoles = localStorage.getItem('userRoles');
 
@@ -22,33 +21,31 @@ let statusi = null;
 if (capacity === 0 && createdAtDays < 14) {
   statusi = `Trial ${13-createdAtDays} days left`;
 }
-console.log("statusi", statusi);
-console.log("createdAtDays", createdAtDays);
-console.log("capacity", capacity);
-console.log("token", token);
-const userInfo = {
-  token: token,
-  userId:userId,
-};
 
-const handleSubscribeClick = () => {
+
+
+
+
+
+const Sidebar = ({ theme, collapsed,userId,token }) => {
+  const [userInfo, setUserInfo] = useState({});
+  const handleSubscribeClick = () => {
  
-console.log("token",token)
-console.log("userId",userId)
-  if (!token || !userId) {
-    console.error("User token or ID is missing!");
-    return; // Exit if no token or userId is available
-  }
-
-  // Construct the URL with query parameters
-  const billingUrl = new URL('https://billing.dynamofleet.com');
-  billingUrl.searchParams.append('token', token);
- 
-  // Navigate to the billing page in the same tab with parameters
-  window.location.href = billingUrl.href;
-};
-
-// Menu items
+    console.log("token",token)
+    console.log("userId",userId)
+      if (!token || !userId) {
+        console.error("User token or ID is missing!");
+        return; // Exit if no token or userId is available
+      }
+    
+      // Construct the URL with query parameters
+      const billingUrl = new URL('https://billing.dynamofleet.com');
+      billingUrl.searchParams.append('token', token);
+     
+      // Navigate to the billing page in the same tab with parameters
+      window.location.href = billingUrl.href;
+    };
+    // Menu items
 const items = [
   { key: 'sub1', label: <Link to="/fleet-overview"></Link>},
   { key: 'sub2', label: <Link to="/fleet-overview">Fleet Overview</Link>, icon: <FundViewOutlined style={{ fontSize: '20px' }} /> },
@@ -79,10 +76,6 @@ const items = [
   { key: 'sub8', label: 'Purchase capacity', icon: <MoneyCollectTwoTone style={{ fontSize: '20px' }} />, onClick: handleSubscribeClick },
 
 ];
-
-const Sidebar = ({ theme, collapsed }) => {
-  const [userInfo, setUserInfo] = useState({});
-
   return (
     <div className={`h-screen fixed top-0 left-0 flex flex-col ${collapsed ? 'w-14' : 'w-56'} justify-between`}>
       {/* Menu section */}

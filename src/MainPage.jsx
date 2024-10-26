@@ -102,7 +102,7 @@ const MainPage = () => {
       ) : (
         // Show the main content when trial is still active
         <div className="flex h-screen overflow-hidden">
-          <Sidebar theme={theme} collapsed={collapsed} />
+          <Sidebar theme={theme} collapsed={collapsed} userId={userId} token={token}/>
           <div className={`flex flex-col flex-grow transition-all duration-300 ${collapsed ? 'ml-14' : 'ml-56'}`}>
             <Nav theme={theme} collapsed={collapsed} changeTheme={changeTheme} toggleSidebar={toggleSidebar} />
             <div className="flex-grow overflow-auto">
