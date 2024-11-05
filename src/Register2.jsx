@@ -427,7 +427,7 @@ useEffect(() => {
 
   return (
     <div className="flex flex-col h-screen w-screen" style={{ backgroundColor: "#f4f4f5" }}>
-      <div className='flex'>
+      <div className='flex flex-grow '>
           <div className="hidden md:flex w-3/4 bg-cover bg-center">
         <div className="hidden md:flex w-4/4">
 
