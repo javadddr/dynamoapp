@@ -25,6 +25,10 @@ export const CarDriverProvider = ({ children }) => {
   const refreshCars = useCallback(async () => {
     try {
       const token = localStorage.getItem('userToken');
+      if (!token) {
+        console.warn("No token found. Skipping cars fetch.");
+        return; // Exit if token is not available
+      }
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/cars`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,6 +50,10 @@ export const CarDriverProvider = ({ children }) => {
   const refreshDrivers = useCallback(async () => {
     try {
       const token = localStorage.getItem('userToken');
+      if (!token) {
+        console.warn("No token found. Skipping drivers fetch.");
+        return; // Exit if token is not available
+      }
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/drivers`, {
         headers: {
           Authorization: `Bearer ${token}`,
