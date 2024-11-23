@@ -27,7 +27,7 @@ if (capacity === 0 && createdAtDays < 14) {
 
 
 
-const Sidebar = ({ theme, collapsed,userId,token }) => {
+const Sidebar = ({ theme, collapsed,userId,token,lan }) => {
   const [userInfo, setUserInfo] = useState({});
   const handleSubscribeClick = () => {
  
@@ -48,32 +48,32 @@ const Sidebar = ({ theme, collapsed,userId,token }) => {
     // Menu items
 const items = [
   { key: 'sub1', label: <Link to="/fleet-overview"></Link>},
-  { key: 'sub2', label: <Link to="/fleet-overview">Fleet Overview</Link>, icon: <FundViewOutlined style={{ fontSize: '20px' }} /> },
-  { key: 'sub3', label: <Link to="/vehicles">Vehicles</Link>, icon: <TruckOutlined style={{ fontSize: '20px' }} /> },
-  { key: 'sub4', label: <Link to="/drivers">Drivers</Link>, icon: <UsergroupAddOutlined style={{ fontSize: '20px' }} /> },
+  { key: 'sub2', label: <Link to="/fleet-overview">{lan==="US"?"Fleet Overview":"Flottenübersicht"}</Link>, icon: <FundViewOutlined style={{ fontSize: '20px' }} /> },
+  { key: 'sub3', label: <Link to="/vehicles"> {lan==="US"?"Vehicles":"Fahrzeuge"}</Link>, icon: <TruckOutlined style={{ fontSize: '20px' }} /> },
+  { key: 'sub4', label: <Link to="/drivers">{lan==="US"?"Drivers":"Fahrer"}</Link>, icon: <UsergroupAddOutlined style={{ fontSize: '20px' }} /> },
   {
     key: 'sub5',
-    label: 'Compliance',
+    label: `${lan==="US"?"Compliance":"Regelkonformität"}`,
     icon: <SafetyOutlined style={{ fontSize: '20px' }} />,
     children: [
-      { key: '9', label: <Link to="/vehicle-inspection">Vehicle Inspection</Link>, icon: <FileProtectOutlined /> },
-      { key: '10', label: <Link to="/drivers-license">Drivers' License</Link>, icon: <IdcardOutlined /> },
+      { key: '9', label: <Link to="/vehicle-inspection"> {lan==="US"?"Vehicle Inspection":"Fahrzeuginspektion"}</Link>, icon: <FileProtectOutlined /> },
+      { key: '10', label: <Link to="/drivers-license">{lan==="US"?"Drivers' License":"Führerschein"}</Link>, icon: <IdcardOutlined /> },
     ],
   },
   {
     key: 'sub6',
-    label: 'Operations',
+    label: `${lan==="US"?"Operations":"Betrieb"}`,
     icon: <SettingOutlined style={{ fontSize: '20px' }} />,
     children: [
-      { key: '1', label: <Link to="/driving-fines">Driving fines</Link>, icon: <DollarOutlined /> },
-      { key: '2', label: <Link to="/equipments">Equipments</Link>, icon: <FormatPainterOutlined /> },
-      { key: '3', label: <Link to="/areas">Areas</Link>, icon: <HeatMapOutlined /> },
+      { key: '1', label: <Link to="/driving-fines">{lan==="US"?"Driving fines":"Strafen"}</Link>, icon: <DollarOutlined /> },
+      { key: '2', label: <Link to="/equipments">{lan==="US"?"Equipments":"Ausrüstungen"}</Link>, icon: <FormatPainterOutlined /> },
+      { key: '3', label: <Link to="/areas">{lan==="US"?"Areas":"Bereiche"}</Link>, icon: <HeatMapOutlined /> },
     ],
   },
-  { key: 'sub7', label: <Link to="/reports">Reports</Link>, icon: <FundProjectionScreenOutlined style={{ fontSize: '20px' }} /> },
+  { key: 'sub7', label: <Link to="/reports">{lan==="US"?"Reports":"Berichte"}</Link>, icon: <FundProjectionScreenOutlined style={{ fontSize: '20px' }} /> },
   
   // Modified Purchase capacity item
-  { key: 'sub8', label: 'Purchase capacity', icon: <MoneyCollectTwoTone style={{ fontSize: '20px' }} />, onClick: handleSubscribeClick },
+  { key: 'sub8', label: `${lan==="US"?"Purchase capacity":"Kapazität kaufen"}`, icon: <MoneyCollectTwoTone style={{ fontSize: '20px' }} />, onClick: handleSubscribeClick },
 
 ];
   return (

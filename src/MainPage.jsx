@@ -23,6 +23,17 @@ import "./MainPage.css"
 import {  Button } from "@nextui-org/react";
 const MainPage = () => {
   const [theme, setTheme] = useState('light');
+  const [lan, setLan] = useState('');
+  useEffect(() => {
+    const storedLan = localStorage.getItem('lan');
+    if (storedLan) {
+      setLan(storedLan); // Use the stored value if it exists
+    } else {
+      localStorage.setItem('lan', 'US'); // Set default value in localStorage
+      setLan('US'); // Set the default state
+    }
+  }, []);
+  
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -35,6 +46,7 @@ const MainPage = () => {
   const changeTheme = (value) => {
     setTheme(value ? 'dark' : 'light');
   };
+
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
@@ -102,9 +114,9 @@ const MainPage = () => {
       ) : (
         // Show the main content when trial is still active
         <div className="flex h-screen overflow-hidden">
-          <Sidebar theme={theme} collapsed={collapsed} userId={userId} token={token}/>
+          <Sidebar theme={theme} lan={lan} collapsed={collapsed} userId={userId} token={token}/>
           <div className={`flex flex-col flex-grow transition-all duration-300 ${collapsed ? 'ml-14' : 'ml-56'}`}>
-            <Nav theme={theme} collapsed={collapsed} changeTheme={changeTheme} toggleSidebar={toggleSidebar} />
+            <Nav theme={theme} setLan={setLan} lan={lan} collapsed={collapsed} changeTheme={changeTheme} toggleSidebar={toggleSidebar} />
             <div className="flex-grow overflow-auto">
               {loading ? (
                 <Loading />

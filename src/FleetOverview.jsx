@@ -881,7 +881,7 @@ const colorsta = {
     
   
       <LiniTwoSec theme={theme} chartData={chartData1}/>
-      <div className="flex flex-col md:flex-row md:w-[80%] w-[93%] justify-between">
+      <div className="flex flex-col md:flex-row md:w-[80%] w-[90%] justify-between -ml-36">
         <Piei chartData={chartDataPie} theme={theme.theme} chartConfig={chartConfig} title={title1} />
         <Piei chartData={chartDataPieDrivers} theme={theme.theme} chartConfig={chartConfigo} title={title2}/>
         <div className={`w-[90%] md:w-[60%]  font-sans ml-3 mt-4 ${
