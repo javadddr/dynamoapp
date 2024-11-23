@@ -986,26 +986,26 @@ const colorsta = {
 
               
             {Object.entries(licenseCheckStatusCounts).map(([status, count]) => {
-  // Get the translated status based on the language
-  const translatedStatus = licenseStatusTranslations[status]?.[lan] || status; // Default to English if no translation found
+                // Get the translated status based on the language
+                const translatedStatus = licenseStatusTranslations[status]?.[lan] || status; // Default to English if no translation found
 
-  return (
-    <div key={status} className='sisisokl'>
-      <div
-        className='DOIROSBB'
-        style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}
-      >
-        {translatedStatus}
-      </div>
-      <div
-        className='nshrotil'
-        style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}
-      >
-        {count}
-      </div>
-    </div>
-  );
-})}
+                return (
+                  <div key={status} className='sisisokl'>
+                    <div
+                      className='DOIROSBB'
+                      style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}
+                    >
+                      {translatedStatus}
+                    </div>
+                    <div
+                      className='nshrotil'
+                      style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}
+                    >
+                      {count}
+                    </div>
+                  </div>
+                );
+              })}
 
 
                   <div className="greenSquarey"></div>
@@ -1044,7 +1044,7 @@ const colorsta = {
      
     
   
-      <LiniTwoSec theme={theme} chartData={chartData1}/>
+      <LiniTwoSec theme={theme} lan={lan} chartData={chartData1}/>
       <div className="flex flex-col md:flex-row md:w-[80%] w-[90%] justify-between -ml-36">
         <Piei chartData={chartDataPie} theme={theme} chartConfig={chartConfig} title={title1} />
         <Piei chartData={chartDataPieDrivers} theme={theme} chartConfig={chartConfigo} title={title2}/>

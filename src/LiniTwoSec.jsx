@@ -22,25 +22,26 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Configuration for chart data labels and colors
-const chartConfig = {
-  Driver: {
-    label: "Driver",
-    color: "hsl(var(--chart-1))",
-  },
-  Vehicles: {
-    label: "Vehicles",
-    color: "hsl(var(--chart-2))",
-  },
-  DriverRation: {
-    label: "Driver Ratio",
-    color: "hsl(var(--chart-3))",
-  },
-};
 
-export function LiniTwoSec({ theme, chartData }) {
+
+export function LiniTwoSec({ theme, chartData,lan }) {
   const [timeRange, setTimeRange] = React.useState("365d"); // Default to Current Year
   const [filterType, setFilterType] = React.useState("All"); // Default to All
-
+  const chartConfig = {
+    Driver: {
+      label: `${lan==="US"?"Drivers":"Fahrer"}`,
+      color: "hsl(var(--chart-1))",
+    },
+    Vehicles: {
+      label: `${lan==="US"?"Vehicles":"Fahrzeuge"}`,
+      color: "hsl(var(--chart-2))",
+    },
+    DriverRation: {
+      label: `${lan==="US"?"Driver Ratio":"Fahrer-Verhältnis"}`,
+      color: "hsl(var(--chart-3))",
+    },
+  };
+console.log("line lan",lan)
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);
     const now = new Date();
@@ -71,7 +72,8 @@ export function LiniTwoSec({ theme, chartData }) {
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardDescription>
-            Number of Drivers, Vehicles and Driver Ration vs Date
+          {lan==="US"?"Number of Drivers, Vehicles and Driver Ration vs Date":"Anzahl der Fahrer, Fahrzeuge und Fahrer-zu-Fahrzeug-Verhältnis nach Datum"}
+            
           </CardDescription>
         </div>
 
@@ -85,16 +87,20 @@ export function LiniTwoSec({ theme, chartData }) {
             </SelectTrigger>
             <SelectContent className="rounded-xl">
               <SelectItem value="365d" className="rounded-lg">
-                Current Year
+              
+                {lan==="US"?"Current year":"Aktuelles Jahr"}
               </SelectItem>
               <SelectItem value="90d" className="rounded-lg">
-                Last 3 months
+               
+                {lan==="US"?"Last 3 months":"Letzte 3 Monate"}
               </SelectItem>
               <SelectItem value="30d" className="rounded-lg">
-                Last 30 days
+               
+                {lan==="US"?"Last 30 days":"Letzte 30 Tage"}
               </SelectItem>
               <SelectItem value="7d" className="rounded-lg">
-                Last 7 days
+                
+                {lan==="US"?"Last 7 days":"Letzte 7 Tage"}
               </SelectItem>
             </SelectContent>
           </Select>
@@ -108,16 +114,20 @@ export function LiniTwoSec({ theme, chartData }) {
             </SelectTrigger>
             <SelectContent className="rounded-xl">
               <SelectItem value="All" className="rounded-lg">
-                All
+                
+                {lan==="US"?"All":"Alle"}
               </SelectItem>
               <SelectItem value="Vehicles" className="rounded-lg">
-                Vehicles
+                
+                {lan==="US"?"Vehicles":"Fahrzeuge"}
               </SelectItem>
               <SelectItem value="Driver" className="rounded-lg">
-                Drivers
+                
+                {lan==="US"?"Drivers":"Fahrer"}
               </SelectItem>
               <SelectItem value="DriverRation" className="rounded-lg">
                 Driver Ratio
+                {lan==="US"?"Driver Ratio":"Fahrer-Verhältnis"}
               </SelectItem>
             </SelectContent>
           </Select>
