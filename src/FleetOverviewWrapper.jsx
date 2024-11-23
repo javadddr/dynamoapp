@@ -2,11 +2,13 @@ import React from 'react';
 import { useCars, useDrivers } from './CarDriver';
 import FleetOverview from './FleetOverview';
 
-const FleetOverviewWrapper = (theme) => {
+const FleetOverviewWrapper = (props) => {
+  const { theme, lan } = props; // Correctly extract props
   const { cars } = useCars();
   const { drivers } = useDrivers();
-
-  return <FleetOverview cars={cars} theme={theme} drivers={drivers} />;
+  console.log("Theme:", theme); // Logs the theme value
+  console.log("Lanyyyy:", lan); // Logs the lan value
+  return <FleetOverview cars={cars} lan={lan} theme={theme} drivers={drivers} />;
 };
 
 export default FleetOverviewWrapper;

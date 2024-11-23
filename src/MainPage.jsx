@@ -26,13 +26,26 @@ const MainPage = () => {
   const [lan, setLan] = useState('');
   useEffect(() => {
     const storedLan = localStorage.getItem('lan');
+  
     if (storedLan) {
       setLan(storedLan); // Use the stored value if it exists
     } else {
-      localStorage.setItem('lan', 'US'); // Set default value in localStorage
-      setLan('US'); // Set the default state
+      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      console.log("User Timezone:", userTimezone); // Debugging
+  
+      // Check if the timezone is in Germany
+      const isGermany = [
+        "Europe/Berlin",    // Main timezone for Germany
+        "Europe/Busingen"   // Special administrative timezone in Germany
+      ].includes(userTimezone);
+  
+      const defaultLan = isGermany ? 'DE' : 'US';
+  
+      localStorage.setItem('lan', defaultLan); // Set default value in localStorage
+      setLan(defaultLan); // Set the default state
     }
   }, []);
+  
   
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -123,7 +136,7 @@ const MainPage = () => {
               ) : (
                 <Routes>
                   <Route path="/" element={<Navigate to="/fleet-overview" />} />
-                  <Route path="/fleet-overview" element={<FleetOverviewWrapper theme={theme} />} />
+                  <Route path="/fleet-overview" element={<FleetOverviewWrapper theme={theme} lan={lan} />} />
                   <Route path="/vehicles" element={<Vehicles data={data} cars={cars} theme={theme} updateCarStatusInContext={updateCarStatusInContext} drivers={drivers} refreshCars={refreshCars}/>} />
                   <Route path="/drivers" element={<Drivers data={data} cars={cars} theme={theme} updateDriverStatusInContext={updateDriverStatusInContext} drivers={drivers} refreshCars={refreshCars} />} />
                   <Route path="/vehicle-inspection" element={<VehicleInspection theme={theme} data={data} />} />

@@ -65,7 +65,7 @@ export function LiniTwoSec({ theme, chartData }) {
   return (
     <Card
       className={`w-[88%] font-sans shadow-xl mt-4 ${
-        theme.theme === 'dark' ? 'dark' : 'light'
+        theme === 'dark' ? 'dark' : 'light'
       }`}
     >
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">

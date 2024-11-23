@@ -11,8 +11,8 @@ import Bari from './Bari';
 import ThreeBar from './ThreeBar';
 import { startOfWeek, addWeeks, format } from 'date-fns';
 
-const FleetOverview = ({ cars, drivers,theme }) => {
-
+const FleetOverview = ({ cars, drivers,theme,lan}) => {
+console.log("themethemetheme",theme)
   const [activeVehiclesCount, setActiveVehiclesCount] = useState(0);
   const [activeVehiclesCount2, setActiveVehiclesCount2] = useState(0);
   const activepercar=((activeVehiclesCount/cars.length)*100).toFixed(0)
@@ -777,7 +777,7 @@ const colorsta = {
   
   //////
   const [allEquipments, setAllEquipments] = useState([]);
-  console.log("allEquipments",allEquipments)
+ 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     const fetchAllEquipments = async () => {
@@ -797,81 +797,245 @@ const colorsta = {
     fetchAllEquipments();
   }, []);
   
-
+  const statusTranslations = {
+    "Active": {
+      US: "Active",
+      DE: "Aktiv",
+    },
+    "Inactive": {
+      US: "Inactive",
+      DE: "Inaktiv",
+    },
+    "Repairing": {
+      US: "Repairing",
+      DE: "In Reparatur",
+    },
+    "Incoming": {
+      US: "Incoming",
+      DE: "Eingehend",
+    },
+    "Transferring": {
+      US: "Transferring",
+      DE: "Übertragung",
+    },
+    "Outgoing": {
+      US: "Outgoing",
+      DE: "Ausgehend",
+    },
+    "No Driver": {
+      US: "No Driver",
+      DE: "Kein Fahrer",
+    }
+  };
+  const driverStatusTranslations = {
+    "Active": {
+      US: "Active",
+      DE: "Aktiv",
+    },
+    "Work Accident": {
+      US: "Work Accident",
+      DE: "Arbeitsunfall",
+    },
+    "Holiday": {
+      US: "Holiday",
+      DE: "Urlaub",
+    },
+    "Over Hours": {
+      US: "Over Hours",
+      DE: "Überstunden",
+    },
+    "Sick": {
+      US: "Sick",
+      DE: "Krank",
+    }
+  };
+  const licenseStatusTranslations = {
+    "Rejected": {
+      US: "Rejected",
+      DE: "Abgelehnt",
+    },
+    "Under Inspection": {
+      US: "Under Inspection",
+      DE: "Wird geprüft",
+    },
+    "No or expired inspection": {
+      US: "No or expired inspection",
+      DE: "Keine/abgelaufene",
+    },
+    "Waiting": {
+      US: "Waiting",
+      DE: "Wartend",
+    },
+    "Inspection Done": {
+      US: "Inspection Done",
+      DE: "Prüfung abgeschlossen",
+    }
+  };
+  
+  const licenseCheckStatus2Translations = {
+    "Pending Review": {
+      US: "Pending Review",
+      DE: "Ausstehende",
+    },
+    "Valid Licenses": {
+      US: "Valid Licenses",
+      DE: "Gültige Lizenzen",
+    },
+    "Setup": {
+      US: "Setup",
+      DE: "Einrichtung",
+    },
+    "Driver Check": {
+      US: "Driver Check",
+      DE: "Fahrerüberprüfung",
+    },
+    "Not Enrolled": {
+      US: "Not Enrolled",
+      DE: "Nicht eingeschrieben",
+    }
+  };
+  
   return (
-    <div style={{ backgroundColor: theme.theme === 'dark' ? '#141C26' : '#f5f8fa'}}>
-    <div className="mainfleeto" style={{ backgroundColor: theme.theme === 'dark' ? '#141C26' : '#f5f8fa'}}>
+    <div style={{ backgroundColor: theme === 'dark' ? '#141C26' : '#f5f8fa'}}>
+    <div className="mainfleeto" style={{ backgroundColor: theme === 'dark' ? '#141C26' : '#f5f8fa'}}>
       <div className='maindashdd'>
           <div className="kpi-container">
-          <div className="kpi w-[70%] md:w-[17%] animate-slide-up" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+          <div className="kpi w-[70%] md:w-[17%] animate-slide-up" style={{ backgroundColor: theme === 'dark' ? '#020917' : '#FFFFFF' }}>
 
-          <div style={{ borderBottom:"1px solid #9d9a9a", paddingBottom:"3px", marginBottom:"9px", color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d' }}>Vehicles</div>
-          <div className="kpi-title" style={{ color: theme.theme === 'dark' ? '#F28E2C' : '#738499' }}>Total Vehicles</div>
-          <div className="kpi-value" style={{ color: theme.theme === 'dark' ? '#bad030' : '#011e3d' }}>{cars.length}</div>
-          <div className="kpi-title" style={{ color: theme.theme === 'dark' ? '#F28E2C' : '#738499' }}>Active Vehicles</div>
-          <div className="kpi-value" style={{ color: theme.theme === 'dark' ? '#bad030' : '#011e3d' }}>{activeVehiclesCount}</div>
-          <div className="kpi-subtext"><span style={{ color: "#27ce88", backgroundColor: theme.theme === 'dark' ? '#020917' : '#e1faee', width: "100%", textAlign: "center", padding: "5px", borderRadius: "5px" }}>  {isNaN(activepercar) ? 0 : activepercar}% Active</span></div>
+          <div style={{ borderBottom:"1px solid #9d9a9a", paddingBottom:"3px", marginBottom:"9px", color: theme === 'dark' ? '#FFFFFF' : '#011e3d' }}>{lan==="US"?"Vehicles":"Fahrzeuge"}</div>
+          <div className="kpi-title" style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}>{lan==="US"?"Total Vehicles":"Gesamtfahrzeuge"}</div>
+          <div className="kpi-value" style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}>{cars.length}</div>
+          <div className="kpi-title" style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}>{lan==="US"?"Active Vehicles":"Aktive Fahrzeuge"}</div>
+          <div className="kpi-value" style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}>{activeVehiclesCount}</div>
+          <div className="kpi-subtext"><span style={{ color: "#27ce88", backgroundColor: theme === 'dark' ? '#020917' : '#e1faee', width: "100%", textAlign: "center", padding: "5px", borderRadius: "5px" }}>  {isNaN(activepercar) ? 0 : activepercar}% {lan==="US"?"Active":"Aktive"}</span></div>
           <div className="greenSquarey"></div>
           <div className="greenSquare2y"></div>
             </div>
-            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-400" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
-            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>Vehicles Status</div>
+            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-400" style={{ backgroundColor: theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>{lan==="US"?"Vehicles Status":"Fahrzeugstatus"}</div>
 
               
-                {Object.entries(statusCounts).map(([status, count]) => (
-                  <div key={status} className='sisisokl'>
-                    <div className='DOIROSBB' style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499',}}>{status}</div> <div className='nshrotil' style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}> {count}</div>
+            {Object.entries(statusCounts).map(([status, count]) => {
+              const translatedStatus = statusTranslations[status]?.[lan] || status; // Default to English if no translation found
+
+              return (
+                <div key={status} className='sisisokl'>
+                  <div
+                    className='DOIROSBB'
+                    style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}
+                  >
+                    {translatedStatus}
                   </div>
-                ))}
+                  <div
+                    className='nshrotil'
+                    style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}
+                  >
+                    {count}
+                  </div>
+                </div>
+              );
+            })}
+
                   <div className="greenSquarey"></div>
           <div className="greenSquare2y"></div>
             </div>
-            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-200" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
-            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>Drivers</div>
-              <div className="kpi-title" style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499',}}>Total Drivers</div>
-              <div className="kpi-value"  style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}>{drivers.length}</div>
+            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-200" style={{ backgroundColor: theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>{lan==="US"?"Drivers":"Fahrer"}</div>
+              <div className="kpi-title" style={{color: theme === 'dark' ? '#F28E2C' : '#738499',}}>{lan==="US"?"Total Drivers":"Gesamtfahrer"}</div>
+              <div className="kpi-value"  style={{color: theme === 'dark' ? '#bad030' : '#011e3d'}}>{drivers.length}</div>
               
-              <div className="kpi-title" style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499'}}>Active Drivers</div>
-              <div className="kpi-value"  style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}>{activeVehiclesCount2}</div>
-              <div className="kpi-subtext"> <span style={{color:"#27ce88",backgroundColor:theme.theme === 'dark' ? '#020917' : '#e1faee',width:"100%",textAlign:"center",padding:"5px",borderRadius:"5px"}}>{isNaN(activeperdriver) ? 0 : activeperdriver}% Active</span></div>
+              <div className="kpi-title" style={{color: theme === 'dark' ? '#F28E2C' : '#738499'}}>{lan==="US"?"Active Drivers":"Aktive Fahrer"}</div>
+              <div className="kpi-value"  style={{color: theme === 'dark' ? '#bad030' : '#011e3d'}}>{activeVehiclesCount2}</div>
+              <div className="kpi-subtext"> <span style={{color:"#27ce88",backgroundColor:theme === 'dark' ? '#020917' : '#e1faee',width:"100%",textAlign:"center",padding:"5px",borderRadius:"5px"}}>{isNaN(activeperdriver) ? 0 : activeperdriver}% {lan==="US"?"Active":"Aktive"}</span></div>
               <div className="greenSquarey"></div>
           <div className="greenSquare2y"></div>
             </div>
            
-            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-600" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
-            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>Driver Status</div>
+            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-600" style={{ backgroundColor: theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>{lan==="US"?"Driver Status":"Fahrerstatus"}</div>
 
               
-                {Object.entries(statusCounts2).map(([status, count]) => (
+            {Object.entries(statusCounts2).map(([status, count]) => {
+                // Get the translated status based on the language
+                const translatedStatus = driverStatusTranslations[status]?.[lan] || status; // Default to English if no translation found
+
+                return (
                   <div key={status} className='sisisokl'>
-                    <div className='DOIROSBB' style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499',}}>{status}</div> <div className='nshrotil'style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}> {count}</div>
+                    <div
+                      className='DOIROSBB'
+                      style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}
+                    >
+                      {translatedStatus}
+                    </div>
+                    <div
+                      className='nshrotil'
+                      style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}
+                    >
+                      {count}
+                    </div>
                   </div>
-                ))}
+                );
+              })}
+
                   <div className="greenSquarey"></div>
           <div className="greenSquare2y"></div>
             </div>
-            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-800" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
-            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>Inspection Check</div>
+            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-800" style={{ backgroundColor: theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+            <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>{lan==="US"?"Inspection Check":"Fahrzeuginspektion"}</div>
 
 
               
-                {Object.entries(licenseCheckStatusCounts).map(([status, count]) => (
-                  <div key={status} className='sisisokl'>
-                    <div className='DOIROSBB'style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499',}}>{status === "No or expired inspection" ? "No or expired" : status}</div> 
-                    <div className='nshrotil' style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}> {count}</div>
-                  </div>
-                ))}
+            {Object.entries(licenseCheckStatusCounts).map(([status, count]) => {
+  // Get the translated status based on the language
+  const translatedStatus = licenseStatusTranslations[status]?.[lan] || status; // Default to English if no translation found
+
+  return (
+    <div key={status} className='sisisokl'>
+      <div
+        className='DOIROSBB'
+        style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}
+      >
+        {translatedStatus}
+      </div>
+      <div
+        className='nshrotil'
+        style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}
+      >
+        {count}
+      </div>
+    </div>
+  );
+})}
+
+
                   <div className="greenSquarey"></div>
           <div className="greenSquare2y"></div>
             </div>
-            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-1000" style={{ backgroundColor: theme.theme === 'dark' ? '#020917' : '#FFFFFF' }}>
-          <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme.theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>License Check</div>
+            <div className="kpi w-[90%] md:w-[32%] animate-slide-up delay-1000" style={{ backgroundColor: theme === 'dark' ? '#020917' : '#FFFFFF' }}>
+          <div style={{ borderBottom:"1px solid #9d9a9a",paddingBottom:"3px",marginBottom:"9px",color: theme === 'dark' ? '#FFFFFF' : '#011e3d'}}>{lan==="US"?"License Check":"Führerscheinkontrolle"}</div>
             
-              {Object.entries(licenseCheckStatusCounts2).map(([status, count]) => (
+          {Object.entries(licenseCheckStatusCounts2).map(([status, count]) => {
+              // Get the translated status based on the language
+              const translatedStatus = licenseCheckStatus2Translations[status]?.[lan] || status; // Default to English if no translation found
+
+              return (
                 <div key={status} className='sisisokl'>
-                  <div className='DOIROSBB' style={{color: theme.theme === 'dark' ? '#F28E2C' : '#738499',}}>{status} </div> <div className='nshrotil' style={{color: theme.theme === 'dark' ? '#bad030' : '#011e3d'}}>{count}</div>
+                  <div
+                    className='DOIROSBB'
+                    style={{ color: theme === 'dark' ? '#F28E2C' : '#738499' }}
+                  >
+                    {translatedStatus}
+                  </div>
+                  <div
+                    className='nshrotil'
+                    style={{ color: theme === 'dark' ? '#bad030' : '#011e3d' }}
+                  >
+                    {count}
+                  </div>
                 </div>
-              ))}
+              );
+            })}
+
                 <div className="greenSquarey"></div>
         <div className="greenSquare2y"></div>
           </div>
@@ -882,12 +1046,12 @@ const colorsta = {
   
       <LiniTwoSec theme={theme} chartData={chartData1}/>
       <div className="flex flex-col md:flex-row md:w-[80%] w-[90%] justify-between -ml-36">
-        <Piei chartData={chartDataPie} theme={theme.theme} chartConfig={chartConfig} title={title1} />
-        <Piei chartData={chartDataPieDrivers} theme={theme.theme} chartConfig={chartConfigo} title={title2}/>
+        <Piei chartData={chartDataPie} theme={theme} chartConfig={chartConfig} title={title1} />
+        <Piei chartData={chartDataPieDrivers} theme={theme} chartConfig={chartConfigo} title={title2}/>
         <div className={`w-[90%] md:w-[60%]  font-sans ml-3 mt-4 ${
-      theme.theme === 'dark' ? 'dark' : 'light'
+      theme === 'dark' ? 'dark' : 'light'
     }`}>
-<Tablei users={equipmentData} theme={theme.theme}/>
+<Tablei users={equipmentData} theme={theme}/>
 </div>
       </div>
   
@@ -895,18 +1059,18 @@ const colorsta = {
      
     </div>
     <div className='w-[88%] ml-[6%]  mt-5 shadow-2xl '>
-    <TwoBar theme={theme.theme} originalData={statusDuringTimeForDrivers} originalData1={statusDuringTimeForCars} chartConfig1={chartConfigw} chartConfig={chartConfigp} labels={labels} labels1={labelso} titleo={"Drivers"} titleo1={"Vehicles"}/>
+    <TwoBar theme={theme} originalData={statusDuringTimeForDrivers} originalData1={statusDuringTimeForCars} chartConfig1={chartConfigw} chartConfig={chartConfigp} labels={labels} labels1={labelso} titleo={"Drivers"} titleo1={"Vehicles"}/>
     </div>
 
       <div className='flex w-[88%] ml-[6%]  mt-5  '>
       <div className='flex w-[58%]  mr-[5%] '>
-       <TablePic rows={rows} colorsta={colorsta} theme={theme.theme}/>
+       <TablePic rows={rows} colorsta={colorsta} theme={theme}/>
        </div>
-       <ThreeBar data={fines} theme={theme.theme} title={title}/>
+       <ThreeBar data={fines} theme={theme} title={title}/>
       </div>
    
       <div className='  pb-5 flex'>
-<Bari chartData={areasPerformance} theme={theme.theme}/>
+<Bari chartData={areasPerformance} theme={theme}/>
 
 </div>
     </div>
