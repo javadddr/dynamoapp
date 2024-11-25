@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
 
-export default function Tablei({ users,theme }) {
+export default function Tablei({ users,theme,lan }) {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 5; // Updated rows per page to 5
 
@@ -16,7 +16,8 @@ export default function Tablei({ users,theme }) {
 
   return (
     
-      <Table 
+      <Table
+      key={lan} 
       color="danger"
       selectionMode="single" 
       defaultSelectedKeys={["1"]} 
@@ -42,10 +43,10 @@ export default function Tablei({ users,theme }) {
       >
         
         <TableHeader>
-          <TableColumn key="type">Equipment Type</TableColumn>
-          <TableColumn key="item">Item</TableColumn>
-          <TableColumn key="quantity">Quantity</TableColumn>
-          <TableColumn key="cost">Total Cost</TableColumn>
+          <TableColumn key="type">{lan==="US"?"Equipment types":"Ausstattungstypen"}</TableColumn>
+          <TableColumn key="item">{lan==="US"?"Item":"Artikel"}</TableColumn>
+          <TableColumn key="quantity">{lan==="US"?"Quantity":"Menge"}</TableColumn>
+          <TableColumn key="cost">{lan==="US"?"Total cost":"Gesamtkosten"}</TableColumn>
         </TableHeader>
      
         <TableBody emptyContent={"No rows to display."} items={items}  >

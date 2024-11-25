@@ -3,7 +3,7 @@ import { Bar, BarChart, XAxis, LabelList, Tooltip } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 
-function TwoBar({ theme, originalData, originalData1, chartConfig, chartConfig1, labels, labels1, titleo, titleo1 }) {
+function TwoBar({ theme, originalData, originalData1, chartConfig, chartConfig1, labels, labels1, titleo, titleo1,lan }) {
   // Transform the original data
   const transformedData = originalData.map(entry => {
     const date = entry.date;
@@ -12,6 +12,7 @@ function TwoBar({ theme, originalData, originalData1, chartConfig, chartConfig1,
       return acc;
     }, { date });
   });
+  console.log("transformedData",transformedData)
 
   const transformedData1 = originalData1.map(entry => {
     const date = entry.date;
@@ -47,9 +48,10 @@ function TwoBar({ theme, originalData, originalData1, chartConfig, chartConfig1,
     <Card className={`${theme === 'dark' ? 'dark' : 'light'}`}>
       <CardHeader className="flex flex-col max-h-20 items-stretch space-y-0 border-b p-0 sm:flex-row shadow-2xl">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle className="text-lg">Status of the {activeChart === "All Drivers" ? titleo : titleo1} (%) vs Date (Weekly)</CardTitle>
+          <CardTitle className="text-lg">{lan==="US"?"Status of the ":"Status der "}{activeChart === "All Drivers" ? titleo : titleo1}{lan==="US"?" (%) vs Date (Weekly) ":"(%) im Vergleich zum Datum (wöchentlich) "}</CardTitle>
           <CardDescription>
-            Showing average status for each category over time
+          {lan==="US"?"Showing average status for each category over time":"Durchschnittlicher Status jeder Kategorie im Zeitverlauf"}
+            
           </CardDescription>
         </div>
         <div className="flex">
@@ -59,7 +61,7 @@ function TwoBar({ theme, originalData, originalData1, chartConfig, chartConfig1,
             className={`relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l ${activeChart === "All Drivers" ? 'bg-purple-500 text-slate-100' : ''} sm:border-l sm:border-t-0 sm:px-8 sm:py-6`}
             onClick={() => setActiveChart("All Drivers")}
           >
-            <span className={`text-sm text-muted-foreground ${activeChart === "All Drivers" ? 'text-slate-100' : ''}`}>Drivers</span>
+            <span className={`text-sm text-muted-foreground ${activeChart === "All Drivers" ? 'text-slate-100' : ''}`}>{lan==="US"?"Drivers":"Fahrer"}</span>
           </button>
           <button
             key="All Vehicles"
@@ -67,7 +69,7 @@ function TwoBar({ theme, originalData, originalData1, chartConfig, chartConfig1,
             className={`relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l ${activeChart === "All Vehicles" ? 'bg-purple-500 text-slate-100' : ''} sm:border-l sm:border-t-0 sm:px-8 sm:py-6`}
             onClick={() => setActiveChart("All Vehicles")}
           >
-            <span className={`text-sm text-muted-foreground ${activeChart === "All Vehicles" ? 'text-slate-100' : ''}`}>Vehicles</span>
+            <span className={`text-sm text-muted-foreground ${activeChart === "All Vehicles" ? 'text-slate-100' : ''}`}>{lan==="US"?"Vehicles":"Fahrzeuge"}</span>
           </button>
         </div>
       </CardHeader>

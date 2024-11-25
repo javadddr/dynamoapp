@@ -11,17 +11,17 @@ import {
   Pagination,
 } from "@nextui-org/react";
 
-// Define columns
-const columns = [
-  { name: "NAME", uid: "name" },
-  { name: "TOTAL COST", uid: "totalCost" },
-  { name: "EQUIPMENTS COST", uid: "equipmentsCost" },
-  { name: "INVOICES", uid: "invoices" },
-  { name: "STATUS", uid: "status" },
-];
 
-const TablePic = ({ rows, colorsta,theme }) => {
-  // Pagination state
+
+const TablePic = ({ rows, colorsta,theme,lan }) => {
+ // Define columns
+const columns = [
+  { name: lan==="US"?"Name":"Name", uid: "name" },
+  { name: lan==="US"?"Total cost":"Gesamtkosten", uid: "totalCost" },
+  { name: lan==="US"?"Equipment costs":"Ausrüstungskosten", uid: "equipmentsCost" },
+  { name: lan==="US"?"Invoices":"Rechnungen", uid: "invoices" },
+  { name: lan==="US"?"Current status":"Aktueller Status", uid: "status" },
+];
   const [page, setPage] = useState(1);
   const rowsPerPage = 4; // Set the number of rows per page
 
@@ -37,7 +37,14 @@ const TablePic = ({ rows, colorsta,theme }) => {
   }, [page, rows]);
   
   
-  
+  const statusTranslations = {
+    "Active": "Aktiv",
+    "Inactive": "Inaktiv",
+    "Sick": "Krank",
+    "Holiday": "Urlaub",
+    "Over Hours": "Überstunden",
+    "Work Accident": "Arbeitsunfall",
+  };
 
   // Function to render cells based on the column key
   const renderCell = useCallback(
@@ -58,26 +65,28 @@ const TablePic = ({ rows, colorsta,theme }) => {
         case "invoices":
           return row.value.Invoices;
         case "status":
+          const displayTag = lan === "US" ? row.tag : statusTranslations[row.tag] || row.tag;
           return (
             <Chip
               className="capitalize"
-              style={{ backgroundColor: colorsta[row.tag], color: 'white' }}
+              style={{ backgroundColor: colorsta[row.tag], color: '#661F52' }}
               size="sm"
               variant="flat"
             >
-              {row.tag}
+              {displayTag}
             </Chip>
           );
         default:
           return cellValue;
       }
     },
-    [colorsta]
+    [colorsta,lan,statusTranslations]
   );
 
   return (
     
     <Table
+    key={lan}
     className={`${theme === 'dark' ? 'dark' : 'light'} ${theme === 'dark' ? 'text-white' : 'black'} shadow-2xl`}
       aria-label="Example  table with custom cells and pagination"
       bottomContent={

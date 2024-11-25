@@ -14,16 +14,16 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartConfig = {
-  cost: {
-    label: "cost",
-    color: "#e76e50",
-  },
-};
 
-const ThreeBar = ({ data,title, theme }) => {
+
+const ThreeBar = ({ data,title, theme,lan }) => {
   const chartData = data;
-
+  const chartConfig = {
+    cost: {
+      label: lan==="US"?"Cost":"Kosten",
+      color: "#e76e50",
+    },
+  };
   return (
     <Card className={`w-[40%] ${theme === 'dark' ? 'dark' : 'light'} shadow-2xl`}>
       <CardHeader>

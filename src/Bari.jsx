@@ -16,23 +16,24 @@ import {
   ChartLegendContent,
 } from '@/components/ui/chart';
 
-const chartConfig = {
-  Vehicles: {
-    label: 'Vehicles',
-    color: 'hsl(var(--chart-1))',
-  },
-  Drivers: {
-    label: 'Drivers',
-    color: 'hsl(var(--chart-2))',
-  },
-};
 
-const Bari = ({ chartData,theme }) => {
+
+const Bari = ({ chartData,theme,lan }) => {
+  const chartConfig = {
+    Vehicles: {
+      label: lan==="US"?"Vehicles":"Fahrzeuge",
+      color: 'hsl(var(--chart-1))',
+    },
+    Drivers: {
+      label: lan==="US"?"Drivers":"Fahrer",
+      color: 'hsl(var(--chart-2))',
+    },
+  };
   return (
     <Card className={`w-[40%] ml-[6%] mt-5 shadow-2xl ${theme === 'dark' ? 'dark' : 'light'}  shadow-2xl`}>
       <CardHeader>
        
-        <CardDescription>Number of Drivers and Vehicles vs Areas</CardDescription>
+        <CardDescription>{lan==="US"?"Number of Drivers and Vehicles vs Areas":"Anzahl der Fahrer und Fahrzeuge nach Gebieten"}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

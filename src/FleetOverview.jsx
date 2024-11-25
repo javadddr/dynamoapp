@@ -23,6 +23,7 @@ console.log("themethemetheme",theme)
   const [licenseCheckStatusCounts2, setLicenseCheckStatusCounts2] = useState({})
   const [chartData1, setChartData1] = useState([]);
   const [fines, setFines] = useState([]);
+  console.log("fines",fines)
   const [chartDataPie, setChartDataPie] = useState([]);
   const [equipmentData, setEquipmentData] = useState([]);
   const [areasPerformance, setAreasPerformance] = useState([]);
@@ -201,8 +202,18 @@ useEffect(() => {
       setStatusDurationSumCars(summarizedStatuses);
 
       const totalValue = summarizedStatuses.reduce((sum, { value }) => sum + value, 0);
+      const translatedLabels = {
+        Active: lan === "US" ? "Active" : "Aktiv",
+        Inactive: lan === "US" ? "Inactive" : "Inaktiv",
+        Incoming: lan === "US" ? "Incoming" : "Eingehend",
+        Outgoing: lan === "US" ? "Outgoing" : "Ausgehend",
+        Transferring: lan === "US" ? "Transferring" : "Übertragend",
+        Repairing: lan === "US" ? "Repairing" : "Reparatur",
+        "No Driver": lan === "US" ? "No Driver" : "Kein Fahrer",
+      };
+    
       const pieData = summarizedStatuses.map(({ label, value }) => ({
-        browser: label,
+        browser: translatedLabels[label] || label, // Translate labels dynamically
         visitors: Number(((value / totalValue) * 100).toFixed(1)),
         fill: `var(--color-${label.replace(/\s+/g, '')})`,
       }));
@@ -215,42 +226,45 @@ useEffect(() => {
   };
 
   fetchStatusRecordsForAllCars();
-}, [cars]);
+}, [cars,lan]);
 const chartConfig = {
   visitors: {
     label: "Status",
   },
   Active: {
-    label: "Active",
+    label: lan === "US" ? "Active" : "Aktiv",
     color: "hsl(var(--chart-2))",
   },
   Inactive: {
-    label: "Inactive",
+    label: lan === "US" ? "Inactive" : "Inaktiv",
     color: "hsl(var(--chart-1))",
   },
   Incoming: {
-    label: "Incoming",
+    label: lan === "US" ? "Incoming" : "Eingehend",
     color: "hsl(var(--chart-3))",
   },
   Outgoing: {
-    label: "Outgoing",
+    label: lan === "US" ? "Outgoing" : "Ausgehend",
     color: "hsl(var(--chart-4))",
   },
   Transferring: {
-    label: "Transferring",
+    label: lan === "US" ? "Transferring" : "Übertragend",
     color: "hsl(var(--chart-5))",
   },
   Repairing: {
-    label: "Repairing",
+    label: lan === "US" ? "Repairing" : "Reparatur",
     color: "#d0a9a4",
   },
   "NoDriver": {
-    label: "No Driver",
+    label: lan === "US" ? "No Driver" : "Kein Fahrer",
     color: "#c7c7ff",
   },
 };
-const title1="Status of the Vehicles (%)"
-const title2="Status of the Drivers (%)"
+const title1 = lan === "US" ? "Status of the Vehicles (%)" : "Fahrzeugstatus (%)";
+
+const title2 = lan === "US" ? "Status of the Drivers (%)" : "Fahrerstatus (%)";
+const titleo= lan === "US" ? "Drivers" : "Fahrer";
+const titleo1= lan === "US" ? "Vehicles" : "Fahrzeuge";
 
 ////PIE 2
 const [chartDataPieDrivers, setChartDataPieDrivers] = useState([]);
@@ -299,8 +313,16 @@ useEffect(() => {
 
       // Calculate the data for the pie chart
       const totalValue = summarizedStatuses.reduce((sum, { value }) => sum + value, 0);
+      const translatedLabels = {
+        Active: lan === "US" ? "Active" : "Aktiv",
+        Inactive: lan === "US" ? "Inactive" : "Inaktiv",
+        Sick: lan === "US" ? "Sick" : "Krank",
+        Holiday: lan === "US" ? "Holiday" : "Urlaub",
+        "Over Hours": lan === "US" ? "Over Hours" : "Überstunden",
+        "Work Accident": lan === "US" ? "Work Accident" : "Arbeitsunfall",
+      };
       const pieData = summarizedStatuses.map(({ label, value }) => ({
-        browser: label,
+        browser: translatedLabels[label] || label, // Use translated labels
         visitors: Number(((value / totalValue) * 100).toFixed(1)),
         fill: `var(--color-${label.replace(/\s+/g, '')})`,
       }));
@@ -354,7 +376,7 @@ useEffect(() => {
   };
 
   fetchStatusRecordsForAllDrivers();
-}, [drivers]);
+}, [drivers,lan]);
 
 
 
@@ -392,13 +414,13 @@ const chartConfigo = {
 const processEquipmentData = (cars, drivers) => {
   const carEquipment = cars.flatMap(car => 
     car.equipment.carEquipment.map(item => ({
-      type: 'For Vehicles',
+      type:lan === "US" ? "For Vehicles" : "Für Fahrzeuge",
       item: item.item,
       quantity: item.quantity,
       cost: item.cost
     })).concat(
       car.equipment.workEquipment.map(item => ({
-        type: 'For Working',
+        type:lan === "US" ? "For Working" : "Für den Einsatz",
         item: item.item,
         quantity: item.quantity,
         cost: item.cost
@@ -410,7 +432,7 @@ const processEquipmentData = (cars, drivers) => {
     driver.equipments.clothing.map(item => {
       const matchingEquipment = allEquipments.find(eq => eq.name === item.item);
       return {
-        type: 'Driver Clothing',
+        type:lan === "US" ? "Driver Clothing" : "Fahrerbekleidung",
         item: item.item,
         quantity: item.quantity,
         cost: matchingEquipment ? matchingEquipment.costPerUnit : 0 // Default to 0 if no match
@@ -420,7 +442,7 @@ const processEquipmentData = (cars, drivers) => {
         const matchingEquipment = allEquipments.find(eq => eq.name === item.item);
        
         return {
-          type: 'For Drivers',
+          type:lan === "US" ? "For Drivers" : "Für Fahrer",
           item: item.item,
           quantity: item.quantity,
           cost: matchingEquipment ? matchingEquipment.costPerUnit : 0 // Default to 0 if no match
@@ -459,7 +481,7 @@ const processEquipmentData = (cars, drivers) => {
 useEffect(() => {
   const equipment = processEquipmentData(cars, drivers);
   setEquipmentData(equipment);
-}, [cars, drivers]);
+}, [cars, drivers,lan]);
 
 /////line dy
 
@@ -711,9 +733,9 @@ const colorsta = {
 
           };
         });
-  
+
       setFines(topDrivers);
-    
+
     } catch (error) {
       console.error('Error fetching fines:', error);
     } finally {
@@ -726,7 +748,8 @@ const colorsta = {
   
   }, []);
 
-  const title="Top 5 Drivers with most fines"
+ 
+  const title= lan === "US" ? "Top 5 Drivers with most fines" : "Top 5 Fahrer mit den meisten Strafen";
 
   useEffect(() => {
     const areaData = {};
@@ -1051,7 +1074,7 @@ const colorsta = {
         <div className={`w-[90%] md:w-[60%]  font-sans ml-3 mt-4 ${
       theme === 'dark' ? 'dark' : 'light'
     }`}>
-<Tablei users={equipmentData} theme={theme}/>
+<Tablei users={equipmentData} lan={lan} theme={theme}/>
 </div>
       </div>
   
@@ -1059,18 +1082,18 @@ const colorsta = {
      
     </div>
     <div className='w-[88%] ml-[6%]  mt-5 shadow-2xl '>
-    <TwoBar theme={theme} originalData={statusDuringTimeForDrivers} originalData1={statusDuringTimeForCars} chartConfig1={chartConfigw} chartConfig={chartConfigp} labels={labels} labels1={labelso} titleo={"Drivers"} titleo1={"Vehicles"}/>
+    <TwoBar theme={theme} originalData={statusDuringTimeForDrivers} originalData1={statusDuringTimeForCars} chartConfig1={chartConfigw} chartConfig={chartConfigp} lan={lan} labels={labels} labels1={labelso} titleo={titleo} titleo1={titleo1}/>
     </div>
 
       <div className='flex w-[88%] ml-[6%]  mt-5  '>
       <div className='flex w-[58%]  mr-[5%] '>
-       <TablePic rows={rows} colorsta={colorsta} theme={theme}/>
+       <TablePic rows={rows} colorsta={colorsta} theme={theme} lan={lan}/>
        </div>
-       <ThreeBar data={fines} theme={theme} title={title}/>
+       <ThreeBar data={fines} lan={lan} theme={theme} title={title}/>
       </div>
    
       <div className='  pb-5 flex'>
-<Bari chartData={areasPerformance} theme={theme}/>
+<Bari chartData={areasPerformance} lan={lan} theme={theme}/>
 
 </div>
     </div>

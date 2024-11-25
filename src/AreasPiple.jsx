@@ -116,7 +116,7 @@ function AreasPiple({ cars,theme, areas, deleteEquipment,isDarkMode }) {
         <div className='flex flex-col'>
           <Button color="primary" variant="flat" className='mb-2'>Vehicles without area</Button>
           <div className="pipelinearea shadow border-slate-300 h-[560px]"    style={{ backgroundColor: isDarkMode ? '#47515E' : 'white' }}>
-      <h2>Vehicles without area</h2>
+     
       <div className="carsarea flex flex-wrap gap-4" >
         {cars
           .filter(car => !car.area || car.area.trim() === "") // Filters both null and empty string values
@@ -188,38 +188,42 @@ function AreasPiple({ cars,theme, areas, deleteEquipment,isDarkMode }) {
                 overflowY: carsInArea.length > 6 ? 'scroll' : 'visible',
               }}
             >
-              {carsInArea.length > 0 ? (
-                carsInArea.map((car) => (
-                  <Card
-                    key={car._id}
-                    className={`car-itemarea flex ${isDarkMode ? 'dark' : ''}`}
-                    isPressable
-                    isDraggable
-                    draggable
-                    onDragStart={(event) => handleDragStart(event, car)}
-                    onClick={(event) => handleCarPictureClick(event, car)}
-                  >
-                    <CardBody className="">
-                      <div className='flex justify-center' style={{ alignItems: 'center' }}>
-                        <div className="w-[80px]">
-                          {car.general.internalName || 'No Name'}
-                        </div>
+           {carsInArea.length > 0 ? (
+  carsInArea.map((car) => (
+    <div key={car._id} className="relative">
+      {/* Delete Icon */}
+      <DeleteIcon
+        className="absolute top-[5px] right-[5px] z-40"
+        style={{ cursor: 'pointer', width: '17px', height: '17px', color: 'red' }}
+        onClick={() => {
+          setSelectedCarId(car._id); // Set the selected car ID
+          setOpenDialog2(true); // Open the second modal
+        }}
+      />
 
-                        {/* Delete Icon for the car */}
-                        <DeleteIcon
-                          style={{ cursor: 'pointer', width: '17px', height: '17px', color: 'red' }}
-                          onClick={() => {
-                            setSelectedCarId(car._id);  // Set the selected car ID
-                            setOpenDialog2(true);  // Open the second modal
-                          }}
-                        />
-                      </div>
-                    </CardBody>
-                  </Card>
-                ))
-              ) : (
-                <p className='text-gray-200'>No vehicle in this area</p>
-              )}
+      {/* Card */}
+      <Card
+        className={`car-itemarea flex ${isDarkMode ? 'dark' : ''}`}
+        isPressable
+        isDraggable
+        draggable
+        onDragStart={(event) => handleDragStart(event, car)}
+        onClick={(event) => handleCarPictureClick(event, car)}
+      >
+        <CardBody>
+          <div className="flex justify-center" style={{ alignItems: 'center' }}>
+            <div className="w-[80px]">
+              {car.general.internalName || 'No Name'}
+            </div>
+          </div>
+        </CardBody>
+      </Card>
+    </div>
+  ))
+) : (
+  <p className="text-gray-200">No vehicle in this area</p>
+)}
+
             </div>
           </div>
         );
