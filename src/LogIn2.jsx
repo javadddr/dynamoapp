@@ -15,6 +15,53 @@ import Modal from './Modal'; // Import the modal component
 
 
 function LogIn2() {
+
+
+
+  const [googleLoaded, setGoogleLoaded] = useState(false);
+
+  useEffect(() => {
+    // Function to check if the Google API is loaded
+    const checkGoogleLoad = () => {
+      if (window.google && window.google.accounts) {
+        setGoogleLoaded(true);
+      }
+    };
+
+    // Check immediately if Google API is already loaded
+    checkGoogleLoad();
+
+    // Set up a listener for when the script loads
+    let script = document.createElement('script');
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.onload = checkGoogleLoad; // Callback when script has loaded
+    document.body.appendChild(script);
+
+    // Clean up function
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (googleLoaded) {
+      window.google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        callback: handleCallbackResponse
+      });
+      window.google.accounts.id.renderButton(
+        document.getElementById("signInDiv"),
+        { theme: "outline", size: "large" }
+      );
+      
+      const button = document.querySelector('#signInDiv div');
+      if (button) {
+        button.style.borderRadius = '5px';
+      }
+    }
+  }, [googleLoaded]);
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = React.useState(false);
 const toggleVisibility = () => setIsVisible(!isVisible);
@@ -572,92 +619,7 @@ useEffect(() => {
           </div>
                 </form>
               </Tab>
-              {/* <Tab key="sign-up" title="Sign up"  className={`${selected=='sign-up'?'focus:outline-none':''}`} style={{ outline: 'none' }}>
-                <form className="flex flex-col gap-4 h-[300px] focus:border-none ">
-                <p className=" text-xs">Username</p>
-                  <Input  
-                  type="text"
-                  name="username" 
-                  value={formData.username} 
-                  onChange={handleChange} 
-                  color="secondary" 
-                  isRequired  
-                  style={{
-                        backgroundColor: "transparent", // No background color
-                        border: "none",                 // No border
-                        outline: "none",                // No outline
-                        boxShadow: "none", 
-                        color:'black',  
-                        marginTop:'0px'
-                        
-                      
-                      }}
-                      className="max-w-xs mt-0  " 
-                      placeholder="Enter your name" />
-                  <p className=" text-xs">Email</p>
-                  <Input   
-                        color="secondary" 
-                        isRequired  
-                        name="email" 
-                        value={formData.email} 
-                        onChange={handleChange}
-                        style={{
-                        backgroundColor: "transparent", // No background color
-                        border: "none",                 // No border
-                        outline: "none",                // No outline
-                        boxShadow: "none", 
-                        color:'black',  
-                        marginTop:'0px'
-                        
-                      
-                      }}
-                      className="max-w-xs mt-0  " placeholder="Enter your email" type="email" />
-                  <p className=" text-xs">Password</p>
-                  <Input
-                    
-                    name="password" 
-                    value={formData.password} 
-                    onChange={handleChange}
-                      placeholder="Enter your password"
-                      endContent={
-                        <button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
-                          {isVisible ? (
-                            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                          ) : (
-                            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                          )}
-                        </button>
-                      }
-                      type={isVisible ? "text" : "password"}
-                      color="secondary"
-    
-                      style={{
-                        backgroundColor: "transparent", // No background color
-                        border: "none",                 // No border
-                        outline: "none",                // No outline
-                        boxShadow: "none", 
-                        color:'black',  
-                        marginTop:'0px'
-                        
-                      
-                      }}
-                      className="max-w-xs mt-0  "
-                    />
-                 <p className="text-center text-sm">
-                    Already have an account?{" "}
-                    <Link size="sm"  style={{color:'blue'}} onClick={() => setSelected("login")}>
-                      Login
-                    </Link>
-                  </p>
-
-                  <div className="flex gap-2 justify-end mt-2">
-                    <Button fullWidth color="primary" variant='flat' type="submit"  disabled={isLoading} onClick={handleSubmiti} className="shadow-2xl border border-indigo-600">
-                     
-                      {isLoading ? 'Registering...' : 'Register'}
-                    </Button>
-                  </div>
-                </form>
-              </Tab> */}
+          
             </Tabs>
           </CardBody>
         </Card>
