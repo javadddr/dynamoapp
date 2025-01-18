@@ -15,75 +15,7 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  function handleCallbackResponse(response) {
-    console.log("Encoded JWT ID token:" + response.credential);
-    var userObject = jwtDecode(response.credential);
-    console.log(userObject);
-    handleGoogleLogin(userObject); // Trigger Google login
-  }
 
-  const handleGoogleLogin = async (userObject) => {
-    setIsLoading(true);
-
-    try {
-      // Attempt to log in the user
-      const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: userObject.email,
-          password: 'google_oauth' // Use the default password for Google login
-        }),
-      });
-      const loginData = await loginResponse.json();
-
-      if (loginResponse.ok) {
-        // Store user information and token in localStorage
-        storeUserData(loginData);
-        navigate('/fleet-overview'); // Redirect to MainPage
-      } else {
-        // If login fails, attempt to register the user
-        const registerResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/google-register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: userObject.email,
-            name: userObject.name
-          }),
-        });
-
-        const registerData = await registerResponse.json();
-
-        if (registerResponse.ok) {
-          // Proceed to login after successful registration
-          const newLoginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: userObject.email,
-              password: 'google_oauth' // Use 'google_oauth' as the password for Google login
-            }),
-          });
-
-          const newLoginData = await newLoginResponse.json();
-
-          if (newLoginResponse.ok) {
-            storeUserData(newLoginData);
-            navigate('/fleet-overview'); // Redirect to MainPage after login
-          } else {
-            setErrorMessage('Login after registration failed. Please try logging in manually.');
-          }
-        } else {
-          setErrorMessage('Google Registration failed. Please try again.');
-        }
-      }
-    } catch (error) {
-      console.error('Google login error:', error);
-      setErrorMessage('An error occurred during login. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const storeUserData = (data) => {
     localStorage.setItem('userToken', data.token);
@@ -101,23 +33,6 @@ function Login() {
   };
 
 
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-      callback: handleCallbackResponse
-    });
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      { theme: "outline", size: "large" }
-    );
-    const button = document.querySelector('#signInDiv div');
-    if (button) {
-      button.style.border = '1px solid yellow';
-      button.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
-      button.style.borderRadius = '5px';
-    }
-  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -211,8 +126,7 @@ function Login() {
           <div className='passwrongi'>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
           </div>
-          <div className='googldivin'>Alternatively, sign in with your Google Account.</div>
-          <div id='signInDiv'></div>
+        
           <div className='forgotpass'>
             <Link to="/change-password">Did you forget your password? <span>Click here!</span></Link>
           </div>

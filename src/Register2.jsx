@@ -27,76 +27,7 @@ const [alertType, setAlertType] = useState('error');
 ///sign
 
 
-function handleCallbackResponse(response) {
-  console.log("Encoded JWT ID token:" + response.credential);
-  var userObject = jwtDecode(response.credential);
-  console.log(userObject);
-  setUsergo(userObject);
-  handleGoogleLogin(userObject); // Trigger Google login
-  handleGoogleRegister(userObject); // Trigger Google registration
-}
-const handleGoogleRegister = async (userObject) => {
-  setIsLoading(true);
-  setShowAlert(false);
 
-  try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/google-register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: userObject.email,
-        name: userObject.name
-      }),
-    });
-    const data = await response.json();
-
-    if (response.ok) {
-      // Proceed to login after successful registration
-      const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: userObject.email,
-          password: 'google_oauth' // Use 'google_oauth' as the password for Google login
-        }),
-      });
-      const loginData = await loginResponse.json();
-
-      if (loginResponse.ok) {
-        localStorage.setItem('userToken', loginData.token);
-        localStorage.setItem('userRoles', loginData.result.roles);
-        localStorage.setItem('username', loginData.result.username);
-        localStorage.setItem('userEmail', loginData.result.email);
-        localStorage.setItem('userId', loginData.result._id);
-        localStorage.setItem('capacity', loginData.result.capacity.toString()); // Save capacity as a string
-
-        // Calculate and save the days since account creation
-        const createdAtDate = new Date(loginData.result.createdAt);
-        const currentDate = new Date();
-        const timeDiff = currentDate.getTime() - createdAtDate.getTime();
-        const daysSinceCreation = Math.floor(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
-        localStorage.setItem('createdAtDays', daysSinceCreation.toString()); // Save as a string
-
-        navigate('/main'); // Redirect to MainPage after login
-      } else {
-        setMessage('Login after registration failed. Please try logging in manually.');
-        setAlertType('error');
-        setShowAlert(true);
-      }
-    } else {
-      setMessage('Google Registration failed. Please try again.');
-      setAlertType('error');
-      setShowAlert(true);
-    }
-  } catch (error) {
-    console.error('Google registration error:', error);
-    setMessage('An error occurred. Please try again.');
-    setAlertType('error');
-    setShowAlert(true);
-  } finally {
-    setIsLoading(false);
-  }
-};
 
 const [showAlert, setShowAlert] = useState(false);
 useEffect(() => {
@@ -183,23 +114,7 @@ useEffect(() => {
   // Call the trackHomeVisit function when the Home component mounts
   trackHomeVisit();
 }, [1]);
-useEffect(() => {
-  /* global google */
-  google.accounts.id.initialize({
-    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-    callback: handleCallbackResponse
-  });
-  google.accounts.id.renderButton(
-    document.getElementById("signInDiv"),
-    { theme: "outline", size: "large" }
-  );
-  const button = document.querySelector('#signInDiv div');
-  if (button) {
-  
-    button.style.borderRadius = '5px';
-  
-  }
-}, []);
+
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -230,75 +145,9 @@ useEffect(() => {
     const [isLoading, setIsLoading] = useState(false);
    
   
-    function handleCallbackResponse(response) {
-      console.log("Encoded JWT ID token:" + response.credential);
-      var userObject = jwtDecode(response.credential);
-      console.log(userObject);
-      handleGoogleLogin(userObject); // Trigger Google login
-    }
+
   
-    const handleGoogleLogin = async (userObject) => {
-      setIsLoading(true);
   
-      try {
-        // Attempt to log in the user
-        const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: userObject.email,
-            password: 'google_oauth' // Use the default password for Google login
-          }),
-        });
-        const loginData = await loginResponse.json();
-  
-        if (loginResponse.ok) {
-          // Store user information and token in localStorage
-          storeUserData(loginData);
-          navigate('/fleet-overview'); // Redirect to MainPage
-        } else {
-          // If login fails, attempt to register the user
-          const registerResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/google-register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: userObject.email,
-              name: userObject.name
-            }),
-          });
-  
-          const registerData = await registerResponse.json();
-  
-          if (registerResponse.ok) {
-            // Proceed to login after successful registration
-            const newLoginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email: userObject.email,
-                password: 'google_oauth' // Use 'google_oauth' as the password for Google login
-              }),
-            });
-  
-            const newLoginData = await newLoginResponse.json();
-  
-            if (newLoginResponse.ok) {
-              storeUserData(newLoginData);
-              navigate('/fleet-overview'); // Redirect to MainPage after login
-            } else {
-              setErrorMessage('Login after registration failed. Please try logging in manually.');
-            }
-          } else {
-            setErrorMessage('Google Registration failed. Please try again.');
-          }
-        }
-      } catch (error) {
-        console.error('Google login error:', error);
-        setErrorMessage('An error occurred during login. Please try again.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
   
     const storeUserData = (data) => {
       localStorage.setItem('userToken', data.token);
@@ -315,24 +164,7 @@ useEffect(() => {
       localStorage.setItem('createdAtDays', daysSinceCreation.toString());
     };
   
-  
-    useEffect(() => {
-      /* global google */
-      google.accounts.id.initialize({
-        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-        callback: handleCallbackResponse
-      });
-      google.accounts.id.renderButton(
-        document.getElementById("signInDiv"),
-        { theme: "outline", size: "large" }
-      );
-      const button = document.querySelector('#signInDiv div');
-      if (button) {
-        
-        button.style.borderRadius = '5px';
 
-      }
-    }, []);
     
   
     const togglePasswordVisibility = () => {
@@ -602,8 +434,7 @@ useEffect(() => {
             </Tabs>
           </CardBody>
         </Card>
-        <div className='text-sm mt-1 mb-2 text-gray-600'>Alternatively, {selected=="login"?'Log in':'sign in'} with your Google Account.</div>
-        <div id='signInDiv'></div>
+    
           </div>
 
         

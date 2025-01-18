@@ -17,94 +17,7 @@ function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [usergo, setUsergo] = useState(null);
 
-  function handleCallbackResponse(response) {
-    console.log("Encoded JWT ID token:" + response.credential);
-    var userObject = jwtDecode(response.credential);
-    console.log(userObject);
-    setUsergo(userObject);
-    handleGoogleRegister(userObject); // Trigger Google registration
-  }
 
-  const handleGoogleRegister = async (userObject) => {
-    setIsLoading(true);
-    setShowAlert(false);
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/google-register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: userObject.email,
-          name: userObject.name
-        }),
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        // Proceed to login after successful registration
-        const loginResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: userObject.email,
-            password: 'google_oauth' // Use 'google_oauth' as the password for Google login
-          }),
-        });
-        const loginData = await loginResponse.json();
-
-        if (loginResponse.ok) {
-          localStorage.setItem('userToken', loginData.token);
-          localStorage.setItem('userRoles', loginData.result.roles);
-          localStorage.setItem('username', loginData.result.username);
-          localStorage.setItem('userEmail', loginData.result.email);
-          localStorage.setItem('userId', loginData.result._id);
-          localStorage.setItem('capacity', loginData.result.capacity.toString()); // Save capacity as a string
-
-          // Calculate and save the days since account creation
-          const createdAtDate = new Date(loginData.result.createdAt);
-          const currentDate = new Date();
-          const timeDiff = currentDate.getTime() - createdAtDate.getTime();
-          const daysSinceCreation = Math.floor(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
-          localStorage.setItem('createdAtDays', daysSinceCreation.toString()); // Save as a string
-
-          navigate('/main'); // Redirect to MainPage after login
-        } else {
-          setMessage('Login after registration failed. Please try logging in manually.');
-          setAlertType('error');
-          setShowAlert(true);
-        }
-      } else {
-        setMessage('Google Registration failed. Please try again.');
-        setAlertType('error');
-        setShowAlert(true);
-      }
-    } catch (error) {
-      console.error('Google registration error:', error);
-      setMessage('An error occurred. Please try again.');
-      setAlertType('error');
-      setShowAlert(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-      callback: handleCallbackResponse
-    });
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      { theme: "outline", size: "large" }
-    );
-    const button = document.querySelector('#signInDiv div');
-    if (button) {
-      button.style.border = '1px solid yellow';
-      button.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
-      button.style.borderRadius = '5px';
-    }
-  }, []);
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -211,8 +124,7 @@ function Register() {
           <button id='justatikso' type="submit" className="form-submit" disabled={isLoading}>
             {isLoading ? 'Registering...' : 'Register'}
           </button>
-          <div className='googldivin'>Alternatively, Register with your Google Account.</div>
-          <div id='signInDiv'></div>
+
           <h6 className="term-form-footer">
             By registering, you accept our <br />
             <a href="https://dynamofleet.com/terms-of-service" target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>Terms of Service</a> and <a href="https://dynamofleet.com/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>Privacy Notice</a>.
